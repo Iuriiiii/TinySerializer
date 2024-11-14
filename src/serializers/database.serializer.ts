@@ -6,7 +6,7 @@ import { unknownSerializer } from "./unknown.serializer.ts";
 /**
  * String databases only!
  */
-export function databaseSerializer(database: Database<string>) {
+export function databaseSerializer(database: Database<string>): Uint8Array {
   const options: SerializeOptions = {
     // Hacky
     stringDatabase: null as unknown as Database<string>,

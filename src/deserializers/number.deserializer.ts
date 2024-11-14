@@ -3,7 +3,6 @@ import { byteDeserializer } from "./byte.deserializer.ts";
 import { wordDeserializer } from "./word.deserializer.ts";
 import { dwordDeserializer } from "./dword.deserializer.ts";
 import { qwordDeserializer } from "./qword.deserializer.ts";
-import { debug } from "../utils/mod.ts";
 
 export function numberDeserializer(
   serialized: Uint8Array,
@@ -12,7 +11,7 @@ export function numberDeserializer(
    * Bytes to read.
    */
   bytes: number,
-) {
+): number {
   switch (true) {
     case bytes === 1:
       return byteDeserializer(serialized, options);

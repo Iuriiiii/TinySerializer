@@ -3,7 +3,10 @@ import type { SerializeOptions } from "../interfaces/mod.ts";
 import { mergeBuffers } from "../utils/mod.ts";
 import { unknownSerializer } from "./unknown.serializer.ts";
 
-export function arraySerializer(value: unknown[], options: SerializeOptions) {
+export function arraySerializer(
+  value: unknown[],
+  options: SerializeOptions,
+): Uint8Array {
   const buffers: Uint8Array[] = [
     new Uint8Array([Serialization.Array]),
   ];

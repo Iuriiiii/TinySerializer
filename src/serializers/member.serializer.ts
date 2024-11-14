@@ -7,7 +7,7 @@ import { unknownSerializer } from "./unknown.serializer.ts";
 export function memberSerializer(
   value: [string, unknown],
   options: SerializeOptions,
-) {
+): Uint8Array {
   const [key, val] = value;
   const serializedKey = stringReferenceSerializer(key, options);
   const serializedValue = unknownSerializer(val, options);

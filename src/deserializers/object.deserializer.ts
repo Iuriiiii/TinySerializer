@@ -1,12 +1,11 @@
 import { Serialization } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { debug } from "../utils/mod.ts";
 import { memberDeserializer } from "./member.deserializer.ts";
 
 export function objectDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
-) {
+): object {
   const result = {};
 
   options.objectDatabase.getOrInsert(result);
@@ -25,6 +24,6 @@ export function objectDeserializer(
 
     memberDeserializer(serialized, options, result);
   }
-  
+
   return result;
 }

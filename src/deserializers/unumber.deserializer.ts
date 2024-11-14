@@ -1,5 +1,4 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { debug } from "../utils/debug.util.ts";
 import { ubyteDeserializer } from "./ubyte.deserializer.ts";
 import { udwordDeserializer } from "./udword.deserializer.ts";
 import { uwordDeserializer } from "./uword.deserializer.ts";
@@ -11,7 +10,7 @@ export function unumberDeserializer(
    * Bytes to read.
    */
   bytes: number,
-) {
+): number {
   switch (true) {
     case bytes === 1:
       return ubyteDeserializer(serialized, options);

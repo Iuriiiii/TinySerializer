@@ -16,7 +16,7 @@ import { wordSerializer } from "./word.serializer.ts";
 export function numberSerializer(
   value: number,
   type = NumberSerializationType.Auto,
-) {
+): Uint8Array {
   const isSignedByte = isByte(value);
   const isSignedWord = !isSignedByte && isWord(value);
   const isSignedDword = !isSignedByte && !isSignedWord && isDword(value);

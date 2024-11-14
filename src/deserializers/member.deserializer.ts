@@ -1,6 +1,5 @@
 import { Serialization } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { debug } from "../utils/debug.util.ts";
 import { stringReferenceDeserializer } from "./string-reference.deserializer.ts";
 import { unknownDeserializer } from "./unknown.deserializer.ts";
 
@@ -8,7 +7,7 @@ export function memberDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
   result: object,
-) {
+): object {
   options.offset++;
   if (serialized.at(options.offset) === Serialization.EndObject) {
     return result;

@@ -18,7 +18,7 @@ import { unumberDeserializer } from "./unumber.deserializer.ts";
 export function stringDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
-) {
+): string {
   const currentOpcode = serialized.at(options.offset)!;
   const stringType = (currentOpcode - Serialization.String) as StringType;
   // Move pointer to string length

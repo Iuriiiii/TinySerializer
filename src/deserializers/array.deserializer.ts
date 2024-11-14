@@ -1,12 +1,11 @@
 import { Serialization } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { debug } from "../utils/mod.ts";
 import { unknownDeserializer } from "./unknown.deserializer.ts";
 
 export function arrayDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
-) {
+): unknown[] {
   const result = [];
 
   options.offset++;

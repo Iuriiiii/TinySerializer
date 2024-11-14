@@ -7,7 +7,7 @@ import { Serialization } from "../enums/mod.ts";
 export function referenceSerializer(
   value: unknown[] | object,
   options: SerializeOptions,
-) {
+): Uint8Array {
   const objectId = options.objectDatabase.rows.get(value);
 
   if (objectId === undefined) {

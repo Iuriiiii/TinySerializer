@@ -3,7 +3,7 @@ import type { DeserializeOptions } from "../interfaces/mod.ts";
 export function wordDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
-) {
+): number {
   // const currentOpcode = serialized.at(options.offset)!;
   options.offset++;
   let result = serialized.at(options.offset)! +

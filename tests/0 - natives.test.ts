@@ -1,4 +1,3 @@
-
 import { assertEquals } from "@std/assert";
 import { Database, unknownDeserializer, unknownSerializer } from "../mod.ts";
 

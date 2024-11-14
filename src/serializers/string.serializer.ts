@@ -6,18 +6,10 @@ import {
   stringTypeToByteSize,
 } from "../utils/mod.ts";
 
-/**
- * With database:
- * Output: 3 bytes.
- * Byte 0: Serialization.String + StringType
- * Byte 1-2: String ID (Word)
- *
- * Without database:
- * Byte 0: Serialization.String + StringType
- * Byte 1-2: String Length (n)
- * Byte 3-n: String
- */
-export function stringSerializer(value: string, options: SerializeOptions) {
+export function stringSerializer(
+  value: string,
+  options: SerializeOptions,
+): Uint8Array {
   const stringType = getStringType(value);
   const textBytes = new TextEncoder().encode(value);
   const bytes = [
