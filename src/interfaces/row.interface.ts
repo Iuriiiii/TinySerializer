@@ -1,4 +1,4 @@
 export interface Row<T> {
-    id: number;
-    value: T;
+  id: number;
+  value: T;
 }

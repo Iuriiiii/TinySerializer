@@ -1,5 +1,5 @@
 import { Database } from "../classes/mod.ts";
-import { SerializeOptions } from "../interfaces/mod.ts";
+import type { SerializeOptions } from "../interfaces/mod.ts";
 import { mergeBuffers } from "../utils/mod.ts";
 import { unknownSerializer } from "./unknown.serializer.ts";
 
@@ -7,15 +7,17 @@ import { unknownSerializer } from "./unknown.serializer.ts";
  * String databases only!
  */
 export function databaseSerializer(database: Database<string>) {
-    const options: SerializeOptions = {
-        // Hacky
-        stringDatabase: null as unknown as Database<string>,
-        objectDatabase: new Database(),
-    };
+  const options: SerializeOptions = {
+    // Hacky
+    stringDatabase: null as unknown as Database<string>,
+    objectDatabase: new Database(),
+    plainText: true,
+    serializers: [],
+  };
 
-    const buffers = database
-        .toArrayOfObjects()
-        .map((row) => unknownSerializer(row.value, options));
+  const buffers = database
+    .toArrayOfObjects()
+    .map((row) => unknownSerializer(row.value, options));
 
-    return mergeBuffers(...buffers);
+  return mergeBuffers(...buffers);
 }

@@ -1,12 +1,8 @@
-import { Database } from "../classes/mod.ts";
-import { Serialization, StringType } from "../enums/mod.ts";
-import { DeserializeOptions } from "../interfaces/mod.ts";
-import {
-    getStringType,
-    numberToBytes,
-    stringTypeToByteSize,
-} from "../utils/mod.ts";
-import { numberDeserializer } from "./number.deserializer.ts";
+import { Serialization } from "../enums/mod.ts";
+import type { StringType } from "../enums/mod.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
+import { stringTypeToByteSize } from "../utils/mod.ts";
+import { unumberDeserializer } from "./unumber.deserializer.ts";
 
 /**
  * With database:
@@ -20,25 +16,23 @@ import { numberDeserializer } from "./number.deserializer.ts";
  * Byte 3-n: String
  */
 export function stringDeserializer(
-    serialized: Uint8Array,
-    options: DeserializeOptions,
+  serialized: Uint8Array,
+  options: DeserializeOptions,
 ) {
-    const currentOpcode = serialized.at(options.offset)!;
-    const stringType = (currentOpcode - Serialization.String) as StringType;
-    // Move pointer to string length
-    options.offset++;
-    const stringLength = numberDeserializer(
-        serialized,
-        options,
-        stringTypeToByteSize(stringType),
-    );
+  const currentOpcode = serialized.at(options.offset)!;
+  const stringType = (currentOpcode - Serialization.String) as StringType;
+  // Move pointer to string length
+  const stringLength = unumberDeserializer(
+    serialized,
+    options,
+    stringTypeToByteSize(stringType),
+  );
+  const _string = Array.from(serialized.slice(
+    options.offset,
+    options.offset + stringLength,
+  )).map((byte) => String.fromCharCode(byte)).join("");
 
-    const _string = serialized.slice(
-        options.offset,
-        options.offset + stringLength,
-    ).toString();
+  options.offset += stringLength;
 
-    options.offset += stringLength;
-
-    return _string;
+  return _string;
 }

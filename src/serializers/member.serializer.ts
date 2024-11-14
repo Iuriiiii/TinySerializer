@@ -1,16 +1,17 @@
 import { Serialization } from "../enums/mod.ts";
-import { SerializeOptions } from "../interfaces/mod.ts";
+import type { SerializeOptions } from "../interfaces/mod.ts";
 import { mergeBuffers } from "../utils/mod.ts";
+import { stringReferenceSerializer } from "./string-reference.serializer.ts";
 import { unknownSerializer } from "./unknown.serializer.ts";
 
 export function memberSerializer(
-    value: [string, unknown],
-    options: SerializeOptions,
+  value: [string, unknown],
+  options: SerializeOptions,
 ) {
-    const [key, val] = value;
-    const keyId = options.stringDatabase.getOrInsert(key);
-    const valueBuffer = unknownSerializer(val, options);
-    const prefix = new Uint8Array([Serialization.Member, keyId]);
+  const [key, val] = value;
+  const serializedKey = stringReferenceSerializer(key, options);
+  const serializedValue = unknownSerializer(val, options);
+  const prefix = new Uint8Array([Serialization.Member]);
 
-    return mergeBuffers(prefix, valueBuffer);
+  return mergeBuffers(prefix, serializedKey, serializedValue);
 }

@@ -1,24 +1,11 @@
-import { isArray } from "@online/is";
-import { SerializeOptions } from "../interfaces/mod.ts";
-import { arraySerializer } from "./array.serializer.ts";
-import { objectSerializer } from "./object.serializer.ts";
-import { Serialization } from "../enums/mod.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
 
-export function referenceSerializer(
-    value: unknown[] | object,
-    options: SerializeOptions,
+export function referenceDeserializer(
+  serialized: Uint8Array,
+  options: DeserializeOptions,
 ) {
-    const objectId = options.objectDatabase.rows.get(value);
-
-    if (!objectId) {
-        options.objectDatabase.getOrInsert(value);
-
-        if (isArray(value)) {
-            return arraySerializer(value, options);
-        }
-
-        return objectSerializer(value, options);
-    }
-
-    return new Uint8Array([Serialization.Reference, objectId]);
+  options.offset++;
+  const objectId = serialized.at(options.offset)!;
+  
+  return options.objectDatabase.get(objectId)!;
 }

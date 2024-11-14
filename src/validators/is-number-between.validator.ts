@@ -1,7 +1,3 @@
-export function isNumberBetween(
-    value: number,
-    min: number,
-    max: number,
-): boolean {
-    return value >= min && value <= max;
+export function isNumberBetween(value: number, min: number, max: number) {
+  return value >= min && value <= max;
 }

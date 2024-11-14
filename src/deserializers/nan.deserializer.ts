@@ -1,6 +1,6 @@
-import { DeserializeOptions } from "../interfaces/mod.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
 
 export function nanDeserializer(options: DeserializeOptions) {
-    options.offset++;
-    return NaN;
+  options.offset++;
+  return NaN;
 }

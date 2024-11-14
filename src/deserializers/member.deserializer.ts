@@ -1,16 +1,24 @@
 import { Serialization } from "../enums/mod.ts";
-import { SerializeOptions } from "../interfaces/mod.ts";
-import { mergeBuffers } from "../utils/mod.ts";
-import { unknownSerializer } from "./unknown.deserializer.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
+import { debug } from "../utils/debug.util.ts";
+import { stringReferenceDeserializer } from "./string-reference.deserializer.ts";
+import { unknownDeserializer } from "./unknown.deserializer.ts";
 
-export function memberSerializer(
-    value: [string, unknown],
-    options: SerializeOptions,
+export function memberDeserializer(
+  serialized: Uint8Array,
+  options: DeserializeOptions,
+  result: object,
 ) {
-    const [key, val] = value;
-    const keyId = options.stringDatabase.getOrInsert(key);
-    const valueBuffer = unknownSerializer(val, options);
-    const prefix = new Uint8Array([Serialization.Member, keyId]);
+  options.offset++;
+  if (serialized.at(options.offset) === Serialization.EndObject) {
+    return result;
+  }
 
-    return mergeBuffers(prefix, valueBuffer);
+  const member = stringReferenceDeserializer(serialized, options);
+  const value = unknownDeserializer(serialized, options);
+
+  // @ts-ignore: Index access
+  result[member] = value;
+
+  return result;
 }

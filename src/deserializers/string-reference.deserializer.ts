@@ -1,16 +1,20 @@
-import { DeserializeOptions } from "../interfaces/mod.ts";
-import { wordDeserializer } from "./word.deserializer.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
+import { debug } from "../utils/mod.ts";
+import { unknownDeserializer } from "./unknown.deserializer.ts";
 
 export function stringReferenceDeserializer(
-    serialized: Uint8Array,
-    options: DeserializeOptions,
+  serialized: Uint8Array,
+  options: DeserializeOptions,
 ) {
-    const stringId = wordDeserializer(serialized, options);
-    const _string = options.stringDatabase.get(stringId)!;
+  options.offset++;
+  // This works because the function detects the number type
 
-    if (!_string) {
-        throw new Error(`String #${stringId} not found`);
-    }
+  const stringId = unknownDeserializer(serialized, options) as number;
+  const _string = options.stringDatabase.get(stringId)!;
 
-    return _string;
+  if (!_string) {
+    throw new Error(`String #${stringId} not found`);
+  }
+
+  return _string;
 }

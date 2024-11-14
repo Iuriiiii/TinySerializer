@@ -1,11 +1,7 @@
-import { Database } from "../classes/mod.ts";
-import { Serialization } from "../enums/mod.ts";
-import { SerializeOptions } from "../interfaces/mod.ts";
-import {
-    getStringType,
-    numberToBytes,
-    stringTypeToByteSize,
-} from "../utils/mod.ts";
+import { NumberSerializationType, Serialization } from "../enums/mod.ts";
+import type { SerializeOptions } from "../interfaces/mod.ts";
+import { getStringType, mergeBuffers } from "../utils/mod.ts";
+import { numberSerializer } from "./number.serializer.ts";
 
 /**
  * With database:
@@ -19,15 +15,16 @@ import {
  * Byte 3-n: String
  */
 export function stringReferenceSerializer(
-    value: string,
-    options: SerializeOptions,
+  value: string,
+  options: SerializeOptions,
 ) {
-    const stringType = getStringType(value);
-    const valueId = options.stringDatabase.getOrInsert(value);
-    const bytes = [
-        Serialization.StringReference + stringType,
-        ...numberToBytes(valueId, 2),
-    ];
+  const stringType = getStringType(value);
+  const valueId = options.stringDatabase.getOrInsert(value);
+  const prefix = new Uint8Array([Serialization.StringReference + stringType]);
+  const serializedStringId = numberSerializer(
+    valueId,
+    NumberSerializationType.Unsigned,
+  );
 
-    return new Uint8Array(bytes);
+  return mergeBuffers(prefix, serializedStringId);
 }

@@ -1,17 +1,29 @@
 import { Serialization } from "../enums/mod.ts";
-import { SerializeOptions } from "../interfaces/mod.ts";
-import { mergeBuffers } from "../utils/mod.ts";
-import { unknownSerializer } from "./unknown.deserializer.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
+import { debug } from "../utils/mod.ts";
+import { unknownDeserializer } from "./unknown.deserializer.ts";
 
-export function arraySerializer(value: unknown[], options: SerializeOptions) {
-    const buffers: Uint8Array[] = [
-        new Uint8Array([Serialization.Array]),
-    ];
+export function arrayDeserializer(
+  serialized: Uint8Array,
+  options: DeserializeOptions,
+) {
+  const result = [];
 
-    for (const item of value) {
-        buffers.push(unknownSerializer(item, options));
+  options.offset++;
+  while (true) {
+    const value = unknownDeserializer(serialized, options);
+    // break;
+    const opcode = serialized.at(options.offset)!;
+    if (opcode === undefined || opcode === Serialization.EndArray) {
+      if (opcode === Serialization.EndArray) {
+        result.push(value);
+      }
+      break;
     }
 
-    buffers.push(new Uint8Array([Serialization.EndArray]));
-    return mergeBuffers(...buffers);
+    result.push(value);
+  }
+  options.offset++;
+
+  return result;
 }

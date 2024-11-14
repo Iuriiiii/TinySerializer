@@ -1,6 +1,6 @@
-import { DeserializeOptions } from "../interfaces/mod.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
 
 export function undefinedDeserializer(options: DeserializeOptions) {
-    options.offset++;
-    return;
+  options.offset++;
+  return;
 }
