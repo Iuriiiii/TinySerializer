@@ -12,3 +12,8 @@ export * from "./nan.serializer.ts";
 export * from "./infinity.serializer.ts";
 export * from "./unknown.serializer.ts";
 export * from "./string-reference.serializer.ts";
+export * from "./array.serializer.ts";
+export * from "./member.serializer.ts";
+export * from "./object.serializer.ts";
+export * from "./reference.serializer.ts";
+export * from "./unknown.serializer.ts";

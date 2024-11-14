@@ -1,7 +1,6 @@
-import { Database } from "../src/classes/mod.ts";
-import { unknownDeserializer } from "../src/deserializers/unknown.deserializer.ts";
-import { unknownSerializer } from "../src/serializers/mod.ts";
+
 import { assertEquals } from "@std/assert";
+import { Database, unknownDeserializer, unknownSerializer } from "../mod.ts";
 
 function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
