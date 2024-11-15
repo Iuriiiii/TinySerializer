@@ -1,10 +1,7 @@
 import { assertEquals } from "@std/assert";
 import {
-  Database,
   deserialize,
-  serialize,
-  unknownDeserializer,
-  unknownSerializer,
+  serialize
 } from "../mod.ts";
 
 function randomNumber(min: number, max: number) {
