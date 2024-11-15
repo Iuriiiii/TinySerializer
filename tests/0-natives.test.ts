@@ -1,5 +1,11 @@
 import { assertEquals } from "@std/assert";
-import { Database, unknownDeserializer, unknownSerializer } from "../mod.ts";
+import {
+  Database,
+  deserialize,
+  serialize,
+  unknownDeserializer,
+  unknownSerializer,
+} from "../mod.ts";
 
 function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -100,20 +106,12 @@ const valuesToTest = [
 Deno.test("Native values", async (t) => {
   for (const valueToTest of valuesToTest) {
     await t.step(`${valueToTest}`, () => {
-      const stringDatabase = new Database<string>();
-      const objectDatabase = new Database<object | Array<unknown>>();
-      const serializedValue = unknownSerializer(valueToTest, {
-        stringDatabase,
-        objectDatabase,
-        plainText: true,
-        serializers: [],
-      });
+      const { value: serializedValue, objectDatabase, stringDatabase } =
+        serialize(valueToTest);
 
-      const deserializedBuff = unknownDeserializer(serializedValue, {
-        offset: 0,
+      const { value: deserializedBuff } = deserialize(serializedValue, {
         objectDatabase,
         stringDatabase,
-        deserializers: [],
       });
 
       assertEquals(deserializedBuff, valueToTest);
