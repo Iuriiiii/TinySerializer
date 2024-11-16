@@ -7,9 +7,9 @@ import { unknownDeserializer } from "./src/deserializers/mod.ts";
 import { unknownSerializer } from "./src/serializers/mod.ts";
 
 export * from "./src/deserializers/mod.ts";
-export * from "./src/types/mod.ts";
 export * from "./src/serializers/mod.ts";
 export * from "./src/classes/mod.ts";
+export * from "./src/decorators/mod.ts";
 
 export interface ISerializeDeserializeResponse<T> {
   value: T;
@@ -29,7 +29,7 @@ export function serialize(
     plainText: options?.plainText ?? false,
     serializers: options?.serializers ?? [],
   });
-  
+
   const result = {
     value: buffer,
     objectDatabase,

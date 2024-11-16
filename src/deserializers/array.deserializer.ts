@@ -11,7 +11,6 @@ export function arrayDeserializer(
   options.offset++;
   while (true) {
     const value = unknownDeserializer(serialized, options);
-    // break;
     const opcode = serialized.at(options.offset)!;
     if (opcode === undefined || opcode === Serialization.EndArray) {
       if (opcode === Serialization.EndArray) {

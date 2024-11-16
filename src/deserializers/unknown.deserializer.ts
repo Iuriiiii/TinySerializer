@@ -13,6 +13,7 @@ import { unumberDeserializer } from "./unumber.deserializer.ts";
 import { arrayDeserializer } from "./array.deserializer.ts";
 import { objectDeserializer } from "./object.deserializer.ts";
 import { referenceDeserializer } from "./reference.deserializer.ts";
+import { classDeserializer } from "./class.deserializer.ts";
 
 export function unknownDeserializer(
   serialized: Uint8Array,
@@ -63,6 +64,8 @@ export function unknownDeserializer(
       return undefinedDeserializer(options);
     case currentOpcode === Serialization.Null:
       return nullDeserializer(options);
+    case currentOpcode === Serialization.Class:
+      return classDeserializer(serialized, options);
     case currentOpcode === Serialization.Infinity ||
       currentOpcode === Serialization.NegativeInfinity:
       return infinityDeserializer(serialized, options);
