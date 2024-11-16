@@ -21,6 +21,9 @@ import { databaseSerializer } from "./database.serializer.ts";
 import type { SerializeOptions } from "../interfaces/mod.ts";
 import { referenceSerializer } from "./reference.serializer.ts";
 import { stringReferenceSerializer } from "./string-reference.serializer.ts";
+import { isSerializableClass } from "../validators/mod.ts";
+import { classSerializer } from "./class.serializer.ts";
+import { SerializableClass } from "../abstractions/mod.ts";
 
 export function unknownSerializer(
   value: unknown,
@@ -48,6 +51,8 @@ export function unknownSerializer(
       return infinitySerializer(value < 0);
     case isNaN(value):
       return nanSerializer();
+    case isSerializableClass(value):
+      return classSerializer(value, options);
     // String databases only!!
     case value instanceof Database:
       return databaseSerializer(value);
@@ -60,6 +65,9 @@ export function unknownSerializer(
         }
       }
 
+      console.warn(
+        "Is the serializable value a class? Remember to use the Serializable decorator!.",
+      );
       throw new Error("Non serializable value found", { cause: value });
   }
 }
