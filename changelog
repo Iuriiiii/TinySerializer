@@ -1,6 +1,10 @@
+# 0.0.7
+
+Add `Latest`value to `Opcode` enum
+
 # 0.0.6
 
-Rename `Serialization` enum to `Opcode`.
+Rename `Serialization` enum to `Opcode`
 
 # 0.0.5
 

@@ -35,4 +35,5 @@ export enum Opcode {
   EndClass = 29,
   Instance,
   EndInstance,
+  Latest
 }
