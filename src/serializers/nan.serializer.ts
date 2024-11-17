@@ -1,5 +1,5 @@
-import { Serialization } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 
 export function nanSerializer(): Uint8Array {
-  return new Uint8Array([Serialization.NaN]);
+  return new Uint8Array([Opcode.NaN]);
 }

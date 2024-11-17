@@ -1,4 +1,4 @@
-export enum Serialization {
+export enum Opcode {
   Byte = 0,
   Word = 1,
   DWord = 2,

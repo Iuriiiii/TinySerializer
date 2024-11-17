@@ -1,4 +1,4 @@
-import { Serialization } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import type { SerializeOptions } from "../interfaces/mod.ts";
 import {
   getStringType,
@@ -13,7 +13,7 @@ export function stringSerializer(
   const stringType = getStringType(value);
   const textBytes = new TextEncoder().encode(value);
   const bytes = [
-    Serialization.String + stringType,
+    Opcode.String + stringType,
     ...numberToBytes(
       textBytes.length,
       stringTypeToByteSize(stringType),

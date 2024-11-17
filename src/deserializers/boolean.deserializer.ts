@@ -1,4 +1,4 @@
-import { Serialization } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 
 export function booleanDeserializer(
@@ -7,5 +7,5 @@ export function booleanDeserializer(
 ): boolean {
   const currentOpcode = serialized.at(options.offset)!;
   options.offset++;
-  return currentOpcode === Serialization.True;
+  return currentOpcode === Opcode.True;
 }

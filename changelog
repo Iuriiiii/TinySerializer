@@ -1,3 +1,11 @@
+# 0.0.6
+
+Rename `Serialization` enum to `Opcode`.
+
+# 0.0.5
+
+Export enums correctly
+
 # 0.0.4
 
 Export `NumberSerializationType` and `mergeBuffers`

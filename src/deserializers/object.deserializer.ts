@@ -1,4 +1,4 @@
-import { Serialization } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { memberDeserializer } from "./member.deserializer.ts";
 
@@ -14,8 +14,8 @@ export function objectDeserializer(
     const opcode = serialized.at(options.offset);
 
     if (
-      opcode === Serialization.EndObject ||
-      opcode === Serialization.EndArray ||
+      opcode === Opcode.EndObject ||
+      opcode === Opcode.EndArray ||
       opcode === undefined
     ) {
       options.offset++;

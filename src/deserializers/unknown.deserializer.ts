@@ -1,6 +1,6 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { isUndefined } from "@online/is";
-import { Serialization } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import { booleanDeserializer } from "./boolean.deserializer.ts";
 import { infinityDeserializer } from "./infinity.deserializer.ts";
 import { nanDeserializer } from "./nan.deserializer.ts";
@@ -26,50 +26,50 @@ export function unknownDeserializer(
   }
 
   switch (true) {
-    case currentOpcode === Serialization.EndArray ||
-      currentOpcode === Serialization.EndObject:
+    case currentOpcode === Opcode.EndArray ||
+      currentOpcode === Opcode.EndObject:
       return;
-    case currentOpcode === Serialization.Array:
+    case currentOpcode === Opcode.Array:
       return arrayDeserializer(serialized, options);
-    case currentOpcode === Serialization.Object:
+    case currentOpcode === Opcode.Object:
       return objectDeserializer(serialized, options);
-    case currentOpcode === Serialization.StringReference ||
-      currentOpcode === Serialization.Reserved3 ||
-      currentOpcode === Serialization.Reserved4:
+    case currentOpcode === Opcode.StringReference ||
+      currentOpcode === Opcode.Reserved3 ||
+      currentOpcode === Opcode.Reserved4:
       return stringReferenceDeserializer(serialized, options);
-    case currentOpcode === Serialization.String ||
-      currentOpcode === Serialization.Reserved1 ||
-      currentOpcode === Serialization.Reserved2:
+    case currentOpcode === Opcode.String ||
+      currentOpcode === Opcode.Reserved1 ||
+      currentOpcode === Opcode.Reserved2:
       return stringDeserializer(serialized, options);
-    case currentOpcode === Serialization.Reference:
+    case currentOpcode === Opcode.Reference:
       return referenceDeserializer(serialized, options);
-    case currentOpcode === Serialization.Byte:
+    case currentOpcode === Opcode.Byte:
       return numberDeserializer(serialized, options, 1);
-    case currentOpcode === Serialization.Word:
+    case currentOpcode === Opcode.Word:
       return numberDeserializer(serialized, options, 2);
-    case currentOpcode === Serialization.DWord:
+    case currentOpcode === Opcode.DWord:
       return numberDeserializer(serialized, options, 4);
-    case currentOpcode === Serialization.UByte:
+    case currentOpcode === Opcode.UByte:
       return unumberDeserializer(serialized, options, 1);
-    case currentOpcode === Serialization.UWord:
+    case currentOpcode === Opcode.UWord:
       return unumberDeserializer(serialized, options, 2);
-    case currentOpcode === Serialization.UDWord:
+    case currentOpcode === Opcode.UDWord:
       return unumberDeserializer(serialized, options, 4);
-    case currentOpcode === Serialization.QWord:
+    case currentOpcode === Opcode.QWord:
       return numberDeserializer(serialized, options, 8);
-    case currentOpcode === Serialization.True ||
-      currentOpcode === Serialization.False:
+    case currentOpcode === Opcode.True ||
+      currentOpcode === Opcode.False:
       return booleanDeserializer(serialized, options);
-    case currentOpcode === Serialization.Undefined:
+    case currentOpcode === Opcode.Undefined:
       return undefinedDeserializer(options);
-    case currentOpcode === Serialization.Null:
+    case currentOpcode === Opcode.Null:
       return nullDeserializer(options);
-    case currentOpcode === Serialization.Class:
+    case currentOpcode === Opcode.Class:
       return classDeserializer(serialized, options);
-    case currentOpcode === Serialization.Infinity ||
-      currentOpcode === Serialization.NegativeInfinity:
+    case currentOpcode === Opcode.Infinity ||
+      currentOpcode === Opcode.NegativeInfinity:
       return infinityDeserializer(serialized, options);
-    case currentOpcode === Serialization.NaN:
+    case currentOpcode === Opcode.NaN:
       return nanDeserializer(options);
     default:
       for (const deserializer of options.deserializers) {

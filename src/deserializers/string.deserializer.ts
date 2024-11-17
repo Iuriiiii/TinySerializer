@@ -1,4 +1,4 @@
-import { Serialization } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import type { StringType } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { stringTypeToByteSize } from "../utils/mod.ts";
@@ -20,7 +20,7 @@ export function stringDeserializer(
   options: DeserializeOptions,
 ): string {
   const currentOpcode = serialized.at(options.offset)!;
-  const stringType = (currentOpcode - Serialization.String) as StringType;
+  const stringType = (currentOpcode - Opcode.String) as StringType;
   // Move pointer to string length
   const stringLength = unumberDeserializer(
     serialized,
