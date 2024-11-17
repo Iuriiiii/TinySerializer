@@ -1,8 +1,5 @@
 import { assertEquals } from "@std/assert";
-import {
-  deserialize,
-  serialize
-} from "../mod.ts";
+import { deserialize, serialize } from "../mod.ts";
 
 function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);

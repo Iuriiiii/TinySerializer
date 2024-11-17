@@ -23,7 +23,6 @@ import { referenceSerializer } from "./reference.serializer.ts";
 import { stringReferenceSerializer } from "./string-reference.serializer.ts";
 import { isSerializableClass } from "../validators/mod.ts";
 import { classSerializer } from "./class.serializer.ts";
-import { SerializableClass } from "../abstractions/mod.ts";
 
 export function unknownSerializer(
   value: unknown,

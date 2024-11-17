@@ -1,4 +1,4 @@
-export function mergeBuffers(...buffers: Uint8Array[]) {
+export function mergeBuffers(...buffers: Uint8Array[]): Uint8Array {
   let offset = 0;
   const result = new Uint8Array(
     buffers.reduce((acc, buff) => acc + buff.length, 0),
