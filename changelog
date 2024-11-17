@@ -1,3 +1,7 @@
+# 0.0.4
+
+Export `NumberSerializationType` and `mergeBuffers`
+
 # 0.0.3
 
 Add serialize and deserialize classes

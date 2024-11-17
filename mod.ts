@@ -5,7 +5,9 @@ import type {
 import { Database } from "./src/classes/mod.ts";
 import { unknownDeserializer } from "./src/deserializers/mod.ts";
 import { unknownSerializer } from "./src/serializers/mod.ts";
+import { mergeBuffers } from "./src/utils/merge-buffers.util.ts";
 
+export { mergeBuffers };
 export * from "./src/deserializers/mod.ts";
 export * from "./src/serializers/mod.ts";
 export * from "./src/classes/mod.ts";
