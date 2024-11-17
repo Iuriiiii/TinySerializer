@@ -44,19 +44,14 @@ export function unknownDeserializer(
     case currentOpcode === Opcode.Reference:
       return referenceDeserializer(serialized, options);
     case currentOpcode === Opcode.Byte:
-      return numberDeserializer(serialized, options, 1);
     case currentOpcode === Opcode.Word:
-      return numberDeserializer(serialized, options, 2);
     case currentOpcode === Opcode.DWord:
-      return numberDeserializer(serialized, options, 4);
-    case currentOpcode === Opcode.UByte:
-      return unumberDeserializer(serialized, options, 1);
-    case currentOpcode === Opcode.UWord:
-      return unumberDeserializer(serialized, options, 2);
-    case currentOpcode === Opcode.UDWord:
-      return unumberDeserializer(serialized, options, 4);
     case currentOpcode === Opcode.QWord:
-      return numberDeserializer(serialized, options, 8);
+      return numberDeserializer(serialized, options);
+    case currentOpcode === Opcode.UByte:
+    case currentOpcode === Opcode.UWord:
+    case currentOpcode === Opcode.UDWord:
+      return unumberDeserializer(serialized, options);
     case currentOpcode === Opcode.True ||
       currentOpcode === Opcode.False:
       return booleanDeserializer(serialized, options);
