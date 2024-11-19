@@ -4,7 +4,13 @@ export class Database<T> {
   public readonly rows: Map<T, number> = new Map<T, number>();
   private id = 0;
 
-  public get(id: number): T | undefined {
+  constructor(initializer: T[] = []) {
+    for (const value of initializer) {
+      this.getOrInsert(value);
+    }
+  }
+
+  public getById(id: number): T | undefined {
     for (const [value, rowId] of this.rows) {
       if (rowId === id) {
         return value;
@@ -12,6 +18,10 @@ export class Database<T> {
     }
 
     return undefined;
+  }
+
+  public get(value: T): number | undefined {
+    return this.rows.get(value);
   }
 
   public getOrInsert(value: T): number {

@@ -6,6 +6,8 @@ export function referenceDeserializer(
 ): object {
   options.offset++;
   const objectId = serialized.at(options.offset)!;
+  const reference = options.objectDatabase.getById(objectId)!;
+  options.offset++;
 
-  return options.objectDatabase.get(objectId)!;
+  return reference;
 }

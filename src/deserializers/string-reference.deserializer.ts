@@ -9,7 +9,7 @@ export function stringReferenceDeserializer(
   // This works because the function detects the number type
 
   const stringId = unknownDeserializer(serialized, options) as number;
-  const _string = options.stringDatabase.get(stringId)!;
+  const _string = options.stringDatabase.getById(stringId)!;
 
   if (!_string) {
     throw new Error(`String #${stringId} not found`);

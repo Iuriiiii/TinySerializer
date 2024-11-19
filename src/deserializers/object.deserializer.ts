@@ -8,8 +8,9 @@ export function objectDeserializer(
 ): object {
   const result = {};
 
-  options.objectDatabase.getOrInsert(result);
   options.offset++;
+  options.objectDatabase.getOrInsert(result);
+  
   while (true) {
     const opcode = serialized.at(options.offset);
 

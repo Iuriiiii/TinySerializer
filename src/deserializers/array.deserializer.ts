@@ -6,12 +6,15 @@ export function arrayDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
 ): unknown[] {
-  const result = [];
+  const result: unknown[] = [];
 
   options.offset++;
+  options.objectDatabase.getOrInsert(result);
+
   while (true) {
     const value = unknownDeserializer(serialized, options);
     const opcode = serialized.at(options.offset)!;
+
     if (opcode === undefined || opcode === Opcode.EndArray) {
       if (opcode === Opcode.EndArray) {
         result.push(value);

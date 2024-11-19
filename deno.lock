@@ -4,6 +4,7 @@
     "jsr:@deno-library/compress@~0.5.2": "0.5.2",
     "jsr:@deno-library/crc32@1.0.2": "1.0.2",
     "jsr:@online/is@^0.0.1": "0.0.1",
+    "jsr:@online/tinyserializers@^0.0.1": "0.0.1",
     "jsr:@std/assert@1": "1.0.7",
     "jsr:@std/bytes@^1.0.2": "1.0.4",
     "jsr:@std/fs@1.0.5": "1.0.5",
@@ -32,6 +33,9 @@
     },
     "@online/is@0.0.1": {
       "integrity": "dba4c1e8932c552a5acec0551ccb22e2debfd3bfc91698d82e7b2cee81e6218c"
+    },
+    "@online/tinyserializers@0.0.1": {
+      "integrity": "f414da1ed348e76488ffe95509e7d8e3fb9e9c636f1ba57126e5bb067d62425c"
     },
     "@std/assert@1.0.7": {
       "integrity": "64ce9fac879e0b9f3042a89b3c3f8ccfc9c984391af19e2087513a79d73e28c3",
@@ -77,6 +81,7 @@
     "dependencies": [
       "jsr:@deno-library/compress@~0.5.2",
       "jsr:@online/is@^0.0.1",
+      "jsr:@online/tinyserializers@^0.0.1",
       "jsr:@std/assert@1"
     ]
   }

@@ -29,6 +29,7 @@ export function serialize(
     objectDatabase,
     stringDatabase,
     plainText: options?.plainText ?? false,
+    plainObject: options?.plainObject ?? false,
     serializers: options?.serializers ?? [],
   });
 

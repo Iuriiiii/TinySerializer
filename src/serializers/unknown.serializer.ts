@@ -1,3 +1,4 @@
+import type { SerializeOptions } from "../interfaces/mod.ts";
 import { Database } from "../classes/mod.ts";
 import {
   isArray,
@@ -18,7 +19,6 @@ import { nullSerializer } from "./null.serializer.ts";
 import { infinitySerializer } from "./infinity.serializer.ts";
 import { nanSerializer } from "./nan.serializer.ts";
 import { databaseSerializer } from "./database.serializer.ts";
-import type { SerializeOptions } from "../interfaces/mod.ts";
 import { referenceSerializer } from "./reference.serializer.ts";
 import { stringReferenceSerializer } from "./string-reference.serializer.ts";
 import { isSerializableClass } from "../validators/mod.ts";
@@ -54,7 +54,7 @@ export function unknownSerializer(
       return classSerializer(value, options);
     // String databases only!!
     case value instanceof Database:
-      return databaseSerializer(value);
+      return databaseSerializer(value, options);
     default:
       for (const serializer of options.serializers) {
         const result = serializer(value, options);

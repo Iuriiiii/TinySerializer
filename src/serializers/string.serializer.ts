@@ -21,6 +21,9 @@ export function stringSerializer(
     ...textBytes,
   ];
 
-  options.stringDatabase.getOrInsert(value);
+  if (!options.plainText) {
+    options.stringDatabase.getOrInsert(value);
+  }
+
   return new Uint8Array(bytes);
 }

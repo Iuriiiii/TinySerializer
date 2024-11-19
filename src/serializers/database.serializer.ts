@@ -1,23 +1,29 @@
 import { Database } from "../classes/mod.ts";
 import type { SerializeOptions } from "../interfaces/mod.ts";
-import { mergeBuffers } from "../utils/mod.ts";
 import { unknownSerializer } from "./unknown.serializer.ts";
 
 /**
  * String databases only!
  */
-export function databaseSerializer(database: Database<string>): Uint8Array {
-  const options: SerializeOptions = {
+
+export function databaseSerializer(
+  database: Database<string>,
+  options: SerializeOptions,
+): Uint8Array {
+  const _options: SerializeOptions = {
     // Hacky
-    stringDatabase: null as unknown as Database<string>,
-    objectDatabase: new Database(),
+    stringDatabase: options?.stringDatabase ??
+      null as unknown as Database<string>,
+    objectDatabase: options?.objectDatabase ?? new Database(),
+    serializers: options?.serializers ?? [],
     plainText: true,
-    serializers: [],
+    plainObject: true,
   };
-
-  const buffers = database
+  const values = database
     .toArrayOfObjects()
-    .map((row) => unknownSerializer(row.value, options));
+    .map(({ value }) => value);
 
-  return mergeBuffers(...buffers);
+  const buffers = unknownSerializer(values, _options);
+
+  return buffers;
 }
