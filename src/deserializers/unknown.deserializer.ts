@@ -9,7 +9,6 @@ import { numberDeserializer } from "./number.deserializer.ts";
 import { stringReferenceDeserializer } from "./string-reference.deserializer.ts";
 import { stringDeserializer } from "./string.deserializer.ts";
 import { undefinedDeserializer } from "./undefined.deserializer.ts";
-import { unumberDeserializer } from "./unumber.deserializer.ts";
 import { arrayDeserializer } from "./array.deserializer.ts";
 import { objectDeserializer } from "./object.deserializer.ts";
 import { referenceDeserializer } from "./reference.deserializer.ts";
@@ -47,11 +46,10 @@ export function unknownDeserializer(
     case currentOpcode === Opcode.Word:
     case currentOpcode === Opcode.DWord:
     case currentOpcode === Opcode.QWord:
-      return numberDeserializer(serialized, options);
     case currentOpcode === Opcode.UByte:
     case currentOpcode === Opcode.UWord:
     case currentOpcode === Opcode.UDWord:
-      return unumberDeserializer(serialized, options);
+      return numberDeserializer(serialized, options);
     case currentOpcode === Opcode.True ||
       currentOpcode === Opcode.False:
       return booleanDeserializer(serialized, options);

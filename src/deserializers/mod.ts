@@ -16,6 +16,5 @@ export * from "./ubyte.deserializer.ts";
 export * from "./udword.deserializer.ts";
 export * from "./undefined.deserializer.ts";
 export * from "./unknown.deserializer.ts";
-export * from "./unumber.deserializer.ts";
 export * from "./uword.deserializer.ts";
 export * from "./word.deserializer.ts";
