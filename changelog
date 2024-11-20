@@ -1,3 +1,7 @@
+# 0.0.10
+
+Fix `stringDeserializer`
+
 # 0.0.9
 
 Better database constructor and fixed array references
