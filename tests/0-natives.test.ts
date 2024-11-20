@@ -114,3 +114,20 @@ Deno.test("Native values", async (t) => {
     });
   }
 });
+
+Deno.test("Array lengths", async (t) => {
+  await t.step(`Empty array must result on length 0`, () => {
+    const { value: serializedValue, objectDatabase, stringDatabase } =
+      serialize([]);
+
+    const { value: deserializedBuff } = deserialize<unknown[]>(
+      serializedValue,
+      {
+        objectDatabase,
+        stringDatabase,
+      },
+    );
+
+    assertEquals(deserializedBuff.length, 0);
+  });
+});

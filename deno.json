@@ -1,6 +1,6 @@
 {
   "name": "@online/tinyserializer",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "exports": {
     ".": "./mod.ts",
     "./types": "./types.ts"
