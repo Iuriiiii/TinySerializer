@@ -27,12 +27,14 @@ export function stringDeserializer(
     options,
     stringTypeToByteSize(stringType),
   );
-  const _string = Array.from(serialized.slice(
+
+  const _string = serialized.slice(
     options.offset,
     options.offset + stringLength,
-  )).map((byte) => String.fromCharCode(byte)).join("");
+  );
+  const deserializedString = new TextDecoder().decode(_string);
 
   options.offset += stringLength;
 
-  return _string;
+  return deserializedString;
 }
