@@ -27,6 +27,7 @@ const selfReferencedObject = {
 selfReferencedObject.c = selfReferencedObject;
 
 const valuesToTest = [
+  "",
   "Buenos días Ana, cómo estás?",
   NaN,
   Infinity,
