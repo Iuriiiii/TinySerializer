@@ -10,6 +10,10 @@ export class Database<T> {
     }
   }
 
+  public isEmpty(): boolean {
+    return this.rows.size === 0;
+  }
+
   public getById(id: number): T | undefined {
     for (const [value, rowId] of this.rows) {
       if (rowId === id) {
