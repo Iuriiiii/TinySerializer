@@ -12,6 +12,7 @@ export * from "./src/deserializers/mod.ts";
 export * from "./src/serializers/mod.ts";
 export * from "./src/classes/mod.ts";
 export * from "./src/decorators/mod.ts";
+export { NumberSerializationType } from "./src/enums/mod.ts";
 
 export interface ISerializeDeserializeResponse<T> {
   value: T;
