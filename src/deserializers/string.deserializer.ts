@@ -1,7 +1,4 @@
-import { Opcode } from "../enums/mod.ts";
-import type { StringType } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { stringTypeToByteSize } from "../utils/mod.ts";
 import { numberDeserializer } from "./number.deserializer.ts";
 
 /**
@@ -30,7 +27,7 @@ export function stringDeserializer(
     options.offset,
     options.offset + stringLength,
   );
-  
+
   const deserializedString = new TextDecoder().decode(_string);
 
   options.offset += stringLength;

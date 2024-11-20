@@ -1,12 +1,7 @@
 import { NumberSerializationType } from "../../types.ts";
 import { Opcode } from "../enums/mod.ts";
 import type { SerializeOptions } from "../interfaces/mod.ts";
-import {
-  getStringType,
-  mergeBuffers,
-  numberToBytes,
-  stringTypeToByteSize,
-} from "../utils/mod.ts";
+import { mergeBuffers } from "../utils/mod.ts";
 import { numberSerializer } from "./number.serializer.ts";
 
 export function stringSerializer(
