@@ -15,5 +15,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Publish package
+      - name: Publish package to JSR
         run: npx jsr publish

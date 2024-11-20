@@ -10,7 +10,7 @@ export function objectDeserializer(
 
   options.offset++;
   options.objectDatabase.getOrInsert(result);
-  
+
   while (true) {
     const opcode = serialized.at(options.offset);
 
