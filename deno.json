@@ -1,6 +1,6 @@
 {
   "name": "@online/tinyserializer",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "exports": {
     ".": "./mod.ts",
     "./types": "./types.ts"
@@ -9,7 +9,6 @@
   "imports": {
     "@deno-library/compress": "jsr:@deno-library/compress@^0.5.2",
     "@online/is": "jsr:@online/is@^0.0.1",
-    "@online/tinyserializers": "jsr:@online/tinyserializers@^0.0.1",
     "@std/assert": "jsr:@std/assert@1"
   },
   "compilerOptions": {
