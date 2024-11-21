@@ -7,3 +7,4 @@ export * from "./is-ubyte.validator.ts";
 export * from "./is-uword.validator.ts";
 export * from "./is-udword.validator.ts";
 export * from "./is-serializable-class.validator.ts";
+export * from "./is-js-number.validator.ts";

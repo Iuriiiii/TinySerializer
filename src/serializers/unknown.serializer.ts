@@ -30,7 +30,7 @@ export function unknownSerializer(
 ): Uint8Array {
   switch (true) {
     case isNumber(value) && !isNaN(value) && !isInfinity(value):
-      return numberSerializer(value);
+      return numberSerializer(value, options);
     case isString(value):
       if (!options.plainText) {
         return stringReferenceSerializer(value, options);

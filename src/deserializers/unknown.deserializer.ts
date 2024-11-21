@@ -42,13 +42,8 @@ export function unknownDeserializer(
       return stringDeserializer(serialized, options);
     case currentOpcode === Opcode.Reference:
       return referenceDeserializer(serialized, options);
-    case currentOpcode === Opcode.Byte:
-    case currentOpcode === Opcode.Word:
-    case currentOpcode === Opcode.DWord:
-    case currentOpcode === Opcode.QWord:
-    case currentOpcode === Opcode.UByte:
-    case currentOpcode === Opcode.UWord:
-    case currentOpcode === Opcode.UDWord:
+    case currentOpcode === Opcode.Number:
+    case currentOpcode === Opcode.SignedNumber:
       return numberDeserializer(serialized, options);
     case currentOpcode === Opcode.True ||
       currentOpcode === Opcode.False:

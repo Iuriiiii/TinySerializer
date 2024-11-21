@@ -1,4 +1,4 @@
-import { NumberSerializationType, Opcode } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import type { SerializeOptions } from "../interfaces/mod.ts";
 import { getStringType, mergeBuffers } from "../utils/mod.ts";
 import { numberSerializer } from "./number.serializer.ts";
@@ -12,7 +12,7 @@ export function stringReferenceSerializer(
   const prefix = new Uint8Array([Opcode.StringReference + stringType]);
   const serializedStringId = numberSerializer(
     valueId,
-    NumberSerializationType.Unsigned,
+    options,
   );
 
   return mergeBuffers(prefix, serializedStringId);

@@ -1,12 +1,5 @@
-import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { byteDeserializer } from "./byte.deserializer.ts";
-import { wordDeserializer } from "./word.deserializer.ts";
-import { dwordDeserializer } from "./dword.deserializer.ts";
-import { qwordDeserializer } from "./qword.deserializer.ts";
 import { Opcode } from "../enums/mod.ts";
-import { ubyteDeserializer } from "./ubyte.deserializer.ts";
-import { uwordDeserializer } from "./uword.deserializer.ts";
-import { udwordDeserializer } from "./udword.deserializer.ts";
+import type { DeserializeOptions } from "../interfaces/mod.ts";
 
 export function numberDeserializer(
   serialized: Uint8Array,
@@ -14,22 +7,32 @@ export function numberDeserializer(
 ): number {
   const currentOpcode = serialized.at(options.offset)!;
 
+  options.offset++;
+  const size = serialized.at(options.offset)!;
+  options.offset++;
+
+  const serializedNumber = serialized.slice(
+    options.offset,
+    options.offset + size,
+  );
+  options.offset += size;
+
+  const bytes = new Uint8Array(
+    [...serializedNumber, 0, 0, 0, 0, 0, 0, 0, 0].slice(
+      0,
+      8,
+    ),
+  );
+
+  const dataView = new DataView(bytes.buffer);
+  const deserializedNumber = dataView.getBigInt64(0, true);
+
   switch (true) {
-    case currentOpcode === Opcode.Byte:
-      return byteDeserializer(serialized, options);
-    case currentOpcode === Opcode.Word:
-      return wordDeserializer(serialized, options);
-    case currentOpcode === Opcode.DWord:
-      return dwordDeserializer(serialized, options);
-    case currentOpcode === Opcode.QWord:
-      return qwordDeserializer(serialized, options);
-    case currentOpcode === Opcode.UByte:
-      return ubyteDeserializer(serialized, options);
-    case currentOpcode === Opcode.UWord:
-      return uwordDeserializer(serialized, options);
-    case currentOpcode === Opcode.UDWord:
-      return udwordDeserializer(serialized, options);
+    case currentOpcode === Opcode.Number:
+      return Number(deserializedNumber) as number;
+    case currentOpcode === Opcode.SignedNumber:
+      return -Number(deserializedNumber) as number;
     default:
-      return 0 as never;
+      return 0;
   }
 }

@@ -1,4 +1,3 @@
-import { NumberSerializationType } from "../../types.ts";
 import { Opcode } from "../enums/mod.ts";
 import type { SerializeOptions } from "../interfaces/mod.ts";
 import { mergeBuffers } from "../utils/mod.ts";
@@ -12,7 +11,7 @@ export function stringSerializer(
   const prefix = new Uint8Array([Opcode.String]);
   const stringLength = numberSerializer(
     textBytes.length,
-    NumberSerializationType.Unsigned,
+    options,
   );
 
   if (!options.plainText) {
