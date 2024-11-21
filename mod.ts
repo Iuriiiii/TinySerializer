@@ -12,7 +12,6 @@ export * from "./src/deserializers/mod.ts";
 export * from "./src/serializers/mod.ts";
 export * from "./src/classes/mod.ts";
 export * from "./src/decorators/mod.ts";
-export { NumberSerializationType } from "./src/enums/mod.ts";
 
 export interface ISerializeDeserializeResponse<T> {
   value: T;
@@ -64,3 +63,22 @@ export function deserialize<T = unknown>(
 
   return result;
 }
+
+// const serializadNumber = numberSerializer(2**53-4, {
+//   stringDatabase: new Database<string>(),
+//   objectDatabase: new Database<object>(),
+//   plainObject: false,
+//   plainText: false,
+//   serializers: [],
+// });
+
+// console.log(serializadNumber);
+
+// const deserializedNumber = numberDeserializer(serializadNumber, {
+//   offset: 0,
+//   stringDatabase: new Database<string>(),
+//   deserializers: [],
+//   objectDatabase: new Database<object>(),
+// });
+
+// console.log(deserializedNumber);

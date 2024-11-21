@@ -1,11 +1,6 @@
 export enum Opcode {
-  Byte = 0,
-  Word = 1,
-  DWord = 2,
-  QWord = 3,
-  UByte = 4,
-  UWord = 5,
-  UDWord = 6,
+  Number = 0,
+  SignedNumber = 1,
   BigInt = 7,
   Infinity = 8,
   NegativeInfinity = 9,
