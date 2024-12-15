@@ -6,6 +6,7 @@ import type {
 
 import type {
   DeserializeFunction,
+  RequireAtLeastOne,
   SerializerFunction,
 } from "./src/types/mod.ts";
 
@@ -16,6 +17,7 @@ export * from "./src/abstractions/mod.ts";
 export type {
   DeserializeFunction,
   DeserializeOptions,
+  RequireAtLeastOne,
   SerializedClass,
   SerializeOptions,
   SerializerFunction,

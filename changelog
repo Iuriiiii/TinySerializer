@@ -1,5 +1,11 @@
 # 0.0.16
 
+Enhance `classSerializer` and `classDeserializer`
+Make optional `serializer` member on `SerializableClass` abstraction
+Add new static method for `SerializableClass` classes called `deserialize`
+
+# 0.0.16
+
 Enhance `numberSerializer` and `numberDeserializer` to support numbers from -(2\**53) to (2**53)
 
 # 0.0.15
