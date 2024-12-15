@@ -1,6 +1,6 @@
-import type { Constructor } from "../types/mod.ts";
+import type { Constructor, PickMembers } from "../types/mod.ts";
 
 export interface SerializedClass<T extends Constructor> {
   arguments: ConstructorParameters<T>;
-  members: object;
+  members: Partial<PickMembers<InstanceType<T>>>;
 }

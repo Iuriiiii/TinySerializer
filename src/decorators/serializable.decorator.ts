@@ -1,8 +1,9 @@
+// deno-lint-ignore-file
 import type { Constructor } from "../types/mod.ts";
 import { serializableClasses } from "../singletons/mod.ts";
 import { SerializableClass } from "../abstractions/mod.ts";
 
-export function Serializable(): (constructor: Constructor) => Constructor {
+export function Serializable(): (constructor: Constructor) => any {
   return function (constructor: Constructor) {
     if (!(constructor.prototype instanceof SerializableClass)) {
       throw new Error(

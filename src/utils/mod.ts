@@ -6,3 +6,4 @@ export * from "./debug.util.ts";
 export * from "./buffer-array-to-string.util.ts";
 export * from "./get-class-name.util.ts";
 export * from "./get-number-info.util.ts";
+export * from "./class-to-object.util.ts";
