@@ -20,7 +20,7 @@ class User2 extends SerializableClass {
     super();
   }
 
-  public override serialize(): RequireAtLeastOne<
+  public serialize(): RequireAtLeastOne<
     SerializedClass<typeof User2>
   > {
     return {
@@ -41,7 +41,7 @@ class User3 extends SerializableClass {
     super();
   }
 
-  public override serialize(): RequireAtLeastOne<
+  public serialize(): RequireAtLeastOne<
     SerializedClass<typeof User2>
   > {
     return {

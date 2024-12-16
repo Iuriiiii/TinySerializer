@@ -3,7 +3,7 @@ import type { SerializableClass } from "../abstractions/mod.ts";
 import type { SerializedClass } from "../interfaces/mod.ts";
 
 export function classToObject(clazz: SerializableClass) {
-  if (clazz.serialize) {
+  if ("serialize" in clazz && clazz.serialize instanceof Function) {
     return clazz.serialize();
   }
 
