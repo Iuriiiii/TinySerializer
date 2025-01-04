@@ -24,50 +24,66 @@ export function unknownDeserializer(
     return undefined;
   }
 
+  let result;
+
   switch (true) {
     case currentOpcode === Opcode.EndArray ||
       currentOpcode === Opcode.EndObject:
       return;
     case currentOpcode === Opcode.Array:
-      return arrayDeserializer(serialized, options);
+      result = arrayDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.Object:
-      return objectDeserializer(serialized, options);
+      result = objectDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.StringReference ||
       currentOpcode === Opcode.Reserved3 ||
       currentOpcode === Opcode.Reserved4:
-      return stringReferenceDeserializer(serialized, options);
+      result = stringReferenceDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.String ||
       currentOpcode === Opcode.Reserved1 ||
       currentOpcode === Opcode.Reserved2:
-      return stringDeserializer(serialized, options);
+      result = stringDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.Reference:
-      return referenceDeserializer(serialized, options);
+      result = referenceDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.Number:
     case currentOpcode === Opcode.SignedNumber:
-      return numberDeserializer(serialized, options);
+      result = numberDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.True ||
       currentOpcode === Opcode.False:
-      return booleanDeserializer(serialized, options);
+      result = booleanDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.Undefined:
-      return undefinedDeserializer(options);
+      result = undefinedDeserializer(options);
+      break;
     case currentOpcode === Opcode.Null:
-      return nullDeserializer(options);
+      result = nullDeserializer(options);
+      break;
     case currentOpcode === Opcode.Class:
-      return classDeserializer(serialized, options);
+      result = classDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.Infinity ||
       currentOpcode === Opcode.NegativeInfinity:
-      return infinityDeserializer(serialized, options);
+      result = infinityDeserializer(serialized, options);
+      break;
     case currentOpcode === Opcode.NaN:
-      return nanDeserializer(options);
+      result = nanDeserializer(options);
+      break;
     default:
       for (const deserializer of options.deserializers) {
-        const result = deserializer(serialized, options);
+        const _result = deserializer(serialized, options);
 
-        if (result) {
-          return result;
+        if (_result) {
+          return !options.decoder ? _result : options.decoder(_result);
         }
       }
 
       throw new Error(`Unknown opcode: ${currentOpcode}`);
   }
+
+  return !options.decoder ? result : options.decoder(result);
 }
