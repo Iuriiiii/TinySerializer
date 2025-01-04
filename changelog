@@ -1,3 +1,7 @@
+# 0.0.19
+
+Enable encoders and decoders.
+
 # 0.0.16
 
 Enhance `classSerializer` and `classDeserializer`
