@@ -24,6 +24,21 @@ import { stringReferenceSerializer } from "./string-reference.serializer.ts";
 import { isSerializableClass } from "../validators/mod.ts";
 import { classSerializer } from "./class.serializer.ts";
 
+/**
+ * Serializes an unknown value into a Uint8Array using various serializers
+ * based on the type of the value.
+ *
+ * @param value - The value to serialize, which can be of any type.
+ * @param options - Options for serialization, including custom encoders
+ *                  and a list of serializers.
+ * @returns A Uint8Array representing the serialized form of the input value.
+ *
+ * The function attempts to serialize the value using a series of checks to
+ * determine its type, such as number, string, boolean, array, object, etc.
+ * If a custom encoder is provided in the options, it is used to transform the
+ * value before serialization. If the value matches none of the predefined
+ * types or the custom serializers, an error is thrown.
+ */
 export function unknownSerializer(
   value: unknown,
   options: SerializeOptions,
@@ -55,7 +70,6 @@ export function unknownSerializer(
       return nanSerializer();
     case isSerializableClass(serializableValue):
       return classSerializer(serializableValue, options);
-    // String databases only!!
     case serializableValue instanceof Database:
       return databaseSerializer(serializableValue, options);
     default:

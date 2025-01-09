@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@inspatial/test": "npm:@jsr/inspatial__test",
+    "@online/is": "npm:@jsr/online__is"
+  }
+}

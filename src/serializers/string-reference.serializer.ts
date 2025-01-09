@@ -3,6 +3,14 @@ import type { SerializeOptions } from "../interfaces/mod.ts";
 import { getStringType, mergeBuffers } from "../utils/mod.ts";
 import { numberSerializer } from "./number.serializer.ts";
 
+/**
+ * Serializes a string reference. If the string is not in the database, it will
+ * be added.
+ *
+ * @param value - The string to serialize.
+ * @param options - The serialize options.
+ * @returns A Uint8Array containing the serialized string reference.
+ */
 export function stringReferenceSerializer(
   value: string,
   options: SerializeOptions,

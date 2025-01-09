@@ -4,6 +4,13 @@ import { mergeBuffers } from "../utils/mod.ts";
 import { stringReferenceSerializer } from "./string-reference.serializer.ts";
 import { unknownSerializer } from "./unknown.serializer.ts";
 
+/**
+ * Serializes a member (key-value pair) into a Uint8Array.
+ *
+ * @param value - A tuple containing the key as a string and the value as an unknown type.
+ * @param options - Options for serialization, including databases and encoder settings.
+ * @returns The serialized member as a Uint8Array, prefixed with the Opcode.Member.
+ */
 export function memberSerializer(
   value: [string, unknown],
   options: SerializeOptions,

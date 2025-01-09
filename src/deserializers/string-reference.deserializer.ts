@@ -2,6 +2,13 @@ import { isUndefined } from "@online/is";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { unknownDeserializer } from "./unknown.deserializer.ts";
 
+/**
+ * Deserializes a string reference.
+ *
+ * @param serialized - The serialized array
+ * @param options - The deserialize options
+ * @returns - The deserialized string
+ */
 export function stringReferenceDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,

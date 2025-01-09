@@ -1,5 +1,5 @@
-import { assertEquals } from "@std/assert";
 import { deserialize, serialize } from "../mod.ts";
+import { assertEqual, test } from "@inspatial/test";
 
 function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -100,35 +100,32 @@ const valuesToTest = [
   },
 ];
 
-Deno.test("Native values", async (t) => {
+test("Native values", () => {
   for (const valueToTest of valuesToTest) {
-    await t.step(`${valueToTest}`, () => {
-      const { value: serializedValue, objectDatabase, stringDatabase } =
-        serialize(valueToTest);
+    const { value: serializedValue, objectDatabase, stringDatabase } =
+      serialize(valueToTest);
 
-      const { value: deserializedBuff } = deserialize(serializedValue, {
-        objectDatabase,
-        stringDatabase,
-      });
-
-      assertEquals(deserializedBuff, valueToTest);
+    const { value: deserializedBuff } = deserialize(serializedValue, {
+      objectDatabase,
+      stringDatabase,
     });
+
+    assertEqual(deserializedBuff, valueToTest);
   }
 });
 
-Deno.test("Array lengths", async (t) => {
-  await t.step(`Empty array must result on length 0`, () => {
-    const { value: serializedValue, objectDatabase, stringDatabase } =
-      serialize([]);
+test("Array lengths", () => {
+  const { value: serializedValue, objectDatabase, stringDatabase } = serialize(
+    [],
+  );
 
-    const { value: deserializedBuff } = deserialize<unknown[]>(
-      serializedValue,
-      {
-        objectDatabase,
-        stringDatabase,
-      },
-    );
+  const { value: deserializedBuff } = deserialize<unknown[]>(
+    serializedValue,
+    {
+      objectDatabase,
+      stringDatabase,
+    },
+  );
 
-    assertEquals(deserializedBuff.length, 0);
-  });
+  assertEqual(deserializedBuff.length, 0);
 });

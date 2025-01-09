@@ -4,6 +4,14 @@ import { arraySerializer } from "./array.serializer.ts";
 import { objectSerializer } from "./object.serializer.ts";
 import { Opcode } from "../enums/mod.ts";
 
+/**
+ * Serializes a reference to an array or object. If the object is not in the
+ * database, it serializes the object itself.
+ *
+ * @param value - The array or object to serialize.
+ * @param options - The serialize options.
+ * @returns A Uint8Array containing the serialized reference.
+ */
 export function referenceSerializer(
   value: unknown[] | object,
   options: SerializeOptions,

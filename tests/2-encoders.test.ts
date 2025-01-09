@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEqual, test } from "@inspatial/test";
 import { deserialize, serialize } from "../mod.ts";
 
 function randomNumber(min: number, max: number) {
@@ -100,7 +100,7 @@ const valuesToTest = [
   },
 ];
 
-Deno.test("Replaces any string with an empty string", async (t) => {
+test("Replaces any string with an empty string", () => {
   for (const valueToTest of valuesToTest) {
     if (typeof valueToTest === "object") {
       continue;
@@ -114,19 +114,17 @@ Deno.test("Replaces any string with an empty string", async (t) => {
       return 33;
     };
 
-    await t.step(`${valueToTest}`, () => {
-      const { value: serializedValue, objectDatabase, stringDatabase } =
-        serialize(valueToTest, { encoder });
+    const { value: serializedValue, objectDatabase, stringDatabase } =
+      serialize(valueToTest, { encoder });
 
-      const { value: deserializedBuff } = deserialize(serializedValue, {
-        objectDatabase,
-        stringDatabase,
-      });
-
-      assertEquals(
-        deserializedBuff,
-        typeof valueToTest === "string" ? 33 : valueToTest,
-      );
+    const { value: deserializedBuff } = deserialize(serializedValue, {
+      objectDatabase,
+      stringDatabase,
     });
+
+    assertEqual(
+      deserializedBuff,
+      typeof valueToTest === "string" ? 33 : valueToTest,
+    );
   }
 });
