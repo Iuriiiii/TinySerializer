@@ -8,7 +8,7 @@ export interface SerializeOptions {
   /**
    * The object database.
    */
-  
+
   objectDatabase: Database<object | object[]>;
   /**
    * The string database.

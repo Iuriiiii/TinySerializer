@@ -4,7 +4,7 @@ import { unknownSerializer } from "./unknown.serializer.ts";
 
 /**
  * Serializes a Database<string> into a Uint8Array.
- * 
+ *
  * @param database The Database<string> to serialize.
  * @param options The SerializeOptions to use.
  * @returns A Uint8Array containing the serialized Database.
