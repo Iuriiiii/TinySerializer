@@ -2,6 +2,14 @@ import type { SerializeOptions } from "../interfaces/mod.ts";
 import { Opcode } from "../enums/mod.ts";
 import { getNumberInfo, mergeBuffers } from "../utils/mod.ts";
 
+/**
+ * Serializes a number to a Uint8Array buffer.
+ *
+ * @param value - The number to serialize
+ * @param _options - Ignored
+ * @returns The serialized Uint8Array buffer of the number, including
+ *          the opcode, size, and serialized value.
+ */
 export function numberSerializer(
   value: number,
   _options: SerializeOptions,

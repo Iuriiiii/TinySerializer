@@ -2,15 +2,11 @@ import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { numberDeserializer } from "./number.deserializer.ts";
 
 /**
- * With database:
- * Output: 3 bytes.
- * Byte 0: Serialization.String + StringType
- * Byte 1-2: String ID (Word)
+ * Deserializes a string.
  *
- * Without database:
- * Byte 0: Serialization.String + StringType
- * Byte 1-2: String Length (n)
- * Byte 3-n: String
+ * @param serialized - The whole serialized array
+ * @param options - The deserialize options
+ * @returns - The deserialized string
  */
 export function stringDeserializer(
   serialized: Uint8Array,

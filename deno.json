@@ -1,17 +1,22 @@
 {
   "name": "@online/tinyserializer",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "exports": {
     ".": "./mod.ts",
     "./types": "./types.ts"
   },
-  "tasks": {},
+  "tasks": {
+    "test": "deno test && bun test && npx tsx --test ./tests/*.test.ts",
+    "generate:ai-docs": "deno doc --json ./ai-docs.json"
+  },
   "imports": {
+    "@inspatial/test": "jsr:@inspatial/test@^0.0.3",
     "@online/is": "jsr:@online/is@^0.0.x",
     "@std/assert": "jsr:@std/assert@^1.0.9"
   },
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
-  }
+  },
+  "nodeModulesDir": "auto"
 }

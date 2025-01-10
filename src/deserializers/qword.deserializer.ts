@@ -1,5 +1,12 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 
+/**
+ * Deserializes a 8-byte unsigned integer from the given serialized array.
+ *
+ * @param serialized - The whole serialized array
+ * @param options - The deserialize options
+ * @returns The deserialized 8-byte unsigned integer
+ */
 export function qwordDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,

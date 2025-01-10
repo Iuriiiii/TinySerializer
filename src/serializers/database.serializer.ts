@@ -3,9 +3,12 @@ import type { SerializeOptions } from "../interfaces/mod.ts";
 import { unknownSerializer } from "./unknown.serializer.ts";
 
 /**
- * String databases only!
+ * Serializes a Database<string> into a Uint8Array.
+ *
+ * @param database The Database<string> to serialize.
+ * @param options The SerializeOptions to use.
+ * @returns A Uint8Array containing the serialized Database.
  */
-
 export function databaseSerializer(
   database: Database<string>,
   options: SerializeOptions,

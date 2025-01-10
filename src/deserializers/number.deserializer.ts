@@ -1,6 +1,13 @@
 import { Opcode } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 
+/**
+ * Deserializes a number from the given serialized array.
+ *
+ * @param serialized - The serialized array
+ * @param options - The deserialize options
+ * @returns The deserialized number
+ */
 export function numberDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,

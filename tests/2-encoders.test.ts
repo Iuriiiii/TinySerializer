@@ -1,132 +1,360 @@
-import { assertEquals } from "@std/assert";
-import { deserialize, serialize } from "../mod.ts";
+// deno-lint-ignore-file no-explicit-any
 
-function randomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+import { assertObjectMatch } from "@std/assert";
+import { Database, unknownDeserializer, unknownSerializer } from "../mod.ts";
+import type { DeserializeOptions, SerializeOptions } from "../types.ts";
 
-function randomString(length: number) {
-  let result = "";
+// Test cases for encoder
+Deno.test("encoder should modify values before serialization", () => {
+  // Setup shared databases
+  const objectDatabase = new Database<object | object[]>([]);
+  const stringDatabase = new Database<string>([]);
 
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÑabcdefghijklmnopqrstuvwxyzáéíóúñ0123456789_!@#$%^&*()";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-
-  return result;
-}
-
-const selfReferencedObject = {
-  a: 1,
-  b: {},
-};
-
-// @ts-ignore: just add new member
-selfReferencedObject.c = selfReferencedObject;
-
-const valuesToTest = [
-  1732140602933,
-  "",
-  "Buenos días Ana, cómo estás?",
-  NaN,
-  Infinity,
-  -Infinity,
-  0,
-  -1,
-  "AbC",
-  127,
-  128,
-  -126,
-  randomString(1000),
-  null,
-  undefined,
-  true,
-  false,
-  65500,
-  20000000,
-  2 ** 31,
-  4,
-  "qw54dqw dqw165 d1qw65 d1qw96 4werf198wf8ew9f7ef79efe ",
-  Array.from({ length: 1000 }).map(() => randomNumber(0, 2 ** 31)),
-  Array.from({ length: 1000 }).map(() => randomNumber(-(2 ** 31), 0)),
-  [1],
-  [1, 2, 3, 4],
-  [1, {}, selfReferencedObject, {
-    a: 213213213,
-    b: [
-      1,
-      [3, 4, 5],
-      2 ** 31 - 1,
-      "7",
-      null,
-      true,
-      false,
-      null,
-      undefined,
-      Infinity,
-      randomString(1000),
-    ],
-  }, "hola"],
-  [
-    1,
-    [3, 4, 5],
-    6,
-    "7",
-    null,
-    true,
-    false,
-    null,
-    undefined,
-    Infinity,
-    randomString(100),
-  ],
-  {
-    a: 213213213,
-    b: [
-      1,
-      [3, 4, 5],
-      2 ** 31 - 1,
-      "7",
-      null,
-      true,
-      false,
-      null,
-      undefined,
-      Infinity,
-      randomString(300),
-    ],
-  },
-];
-
-Deno.test("Replaces any string with an empty string", async (t) => {
-  for (const valueToTest of valuesToTest) {
-    if (typeof valueToTest === "object") {
-      continue;
-    }
-
-    const encoder = (value: unknown) => {
-      if (typeof value !== "string") {
-        return value;
+  // Setup options with encoder
+  const options: SerializeOptions = {
+    objectDatabase,
+    stringDatabase,
+    serializers: [],
+    plainText: false,
+    plainObject: false,
+    encoder: (value: any): any => {
+      if (typeof value === "string") {
+        return value.toUpperCase();
       }
+      return value;
+    },
+  };
 
-      return 33;
+  // Create deserialize options sharing databases
+  const deserializeOptions: DeserializeOptions = {
+    offset: 0,
+    objectDatabase,
+    stringDatabase,
+    deserializers: [],
+  };
+
+  const testData = {
+    name: "test",
+    age: 25,
+  };
+
+  // Serialize with encoder
+  const serialized = unknownSerializer(testData, options);
+
+  // Deserialize and verify
+  const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+  assertObjectMatch(deserialized as any, {
+    name: "TEST",
+    age: 25,
+  });
+
+  // Test number encoding
+  Deno.test("encoder should handle numbers", () => {
+    const objectDatabase = new Database<object | object[]>([]);
+    const stringDatabase = new Database<string>([]);
+
+    const options: SerializeOptions = {
+      objectDatabase,
+      stringDatabase,
+      serializers: [],
+      plainText: false,
+      plainObject: false,
+      encoder: (value: any): any => {
+        if (typeof value === "number" && Number.isFinite(value)) {
+          return value * 10;
+        }
+        return value;
+      },
     };
 
-    await t.step(`${valueToTest}`, () => {
-      const { value: serializedValue, objectDatabase, stringDatabase } =
-        serialize(valueToTest, { encoder });
+    const deserializeOptions: DeserializeOptions = {
+      offset: 0,
+      objectDatabase,
+      stringDatabase,
+      deserializers: [],
+    };
 
-      const { value: deserializedBuff } = deserialize(serializedValue, {
-        objectDatabase,
-        stringDatabase,
-      });
+    const testData = {
+      integer: 42,
+      float: 3.14,
+      special: {
+        infinity: Infinity,
+        nan: NaN,
+      },
+    };
 
-      assertEquals(
-        deserializedBuff,
-        typeof valueToTest === "string" ? 33 : valueToTest,
-      );
+    const serialized = unknownSerializer(testData, options);
+    const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+    assertObjectMatch(deserialized as any, {
+      integer: 420,
+      float: 31.4,
+      special: {
+        infinity: Infinity,
+        nan: NaN,
+      },
     });
-  }
+  });
+
+  // Test boolean encoding
+  Deno.test("encoder should handle booleans", () => {
+    const objectDatabase = new Database<object | object[]>([]);
+    const stringDatabase = new Database<string>([]);
+
+    const options: SerializeOptions = {
+      objectDatabase,
+      stringDatabase,
+      serializers: [],
+      plainText: false,
+      plainObject: false,
+      encoder: (value: any): any => {
+        if (typeof value === "boolean") {
+          return !value; // Invert boolean values
+        }
+        return value;
+      },
+    };
+
+    const deserializeOptions: DeserializeOptions = {
+      offset: 0,
+      objectDatabase,
+      stringDatabase,
+      deserializers: [],
+    };
+
+    const testData = {
+      isActive: true,
+      isComplete: false,
+      flags: [true, false, true],
+    };
+
+    const serialized = unknownSerializer(testData, options);
+    const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+    assertObjectMatch(deserialized as any, {
+      isActive: false,
+      isComplete: true,
+      flags: [false, true, false],
+    });
+  });
+
+  // Test null and undefined encoding
+  Deno.test("encoder should handle null and undefined", () => {
+    const objectDatabase = new Database<object | object[]>([]);
+    const stringDatabase = new Database<string>([]);
+
+    const options: SerializeOptions = {
+      objectDatabase,
+      stringDatabase,
+      serializers: [],
+      plainText: false,
+      plainObject: false,
+      encoder: (value: any): any => {
+        if (value === null) {
+          return undefined;
+        }
+        if (value === undefined) {
+          return null;
+        }
+        return value;
+      },
+    };
+
+    const deserializeOptions: DeserializeOptions = {
+      offset: 0,
+      objectDatabase,
+      stringDatabase,
+      deserializers: [],
+    };
+
+    const testData = {
+      nullValue: null,
+      undefinedValue: undefined,
+      mixed: [null, undefined, "test"],
+    };
+
+    const serialized = unknownSerializer(testData, options);
+    const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+    assertObjectMatch(deserialized as any, {
+      nullValue: undefined,
+      undefinedValue: null,
+      mixed: [undefined, null, "test"],
+    });
+  });
+
+  // Test string pattern matching and replacement
+  Deno.test("encoder should handle string pattern matching", () => {
+    const objectDatabase = new Database<object | object[]>([]);
+    const stringDatabase = new Database<string>([]);
+
+    const options: SerializeOptions = {
+      objectDatabase,
+      stringDatabase,
+      serializers: [],
+      plainText: false,
+      plainObject: false,
+      encoder: (value: any): any => {
+        if (typeof value === "string") {
+          // Replace numbers in strings with X
+          return value.replace(/\d+/g, "X");
+        }
+        return value;
+      },
+    };
+
+    const deserializeOptions: DeserializeOptions = {
+      offset: 0,
+      objectDatabase,
+      stringDatabase,
+      deserializers: [],
+    };
+
+    const testData = {
+      code: "ABC123",
+      version: "2.0.1",
+      messages: ["test42", "hello123world", "noNumbers"],
+    };
+
+    const serialized = unknownSerializer(testData, options);
+    const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+    assertObjectMatch(deserialized as any, {
+      code: "ABCX",
+      version: "X.X.X",
+      messages: ["testX", "helloXworld", "noNumbers"],
+    });
+  });
+
+  // Test bigint encoding (converting to number)
+  Deno.test("encoder should handle bigint conversion", () => {
+    const objectDatabase = new Database<object | object[]>([]);
+    const stringDatabase = new Database<string>([]);
+
+    const options: SerializeOptions = {
+      objectDatabase,
+      stringDatabase,
+      serializers: [],
+      plainText: false,
+      plainObject: false,
+      encoder: (value: any): any => {
+        if (typeof value === "bigint") {
+          return Number(value / 2n); // Convert bigint to number and halve it
+        }
+        return value;
+      },
+    };
+
+    const deserializeOptions: DeserializeOptions = {
+      offset: 0,
+      objectDatabase,
+      stringDatabase,
+      deserializers: [],
+    };
+
+    const testData = {
+      regular: 100,
+      bigValue: 200n,
+      mixed: [50n, 100, 150n],
+    };
+
+    const serialized = unknownSerializer(testData, options);
+    const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+    assertObjectMatch(deserialized as any, {
+      regular: 100,
+      bigValue: 100,
+      mixed: [25, 100, 75],
+    });
+  });
+});
+
+// Test nested object encoding
+Deno.test("encoder should handle nested objects", () => {
+  const objectDatabase = new Database<object | object[]>([]);
+  const stringDatabase = new Database<string>([]);
+
+  const options: SerializeOptions = {
+    objectDatabase,
+    stringDatabase,
+    serializers: [],
+    plainText: false,
+    plainObject: false,
+    encoder: (value: any): any => {
+      if (typeof value === "object" && value !== null) {
+        if ("count" in value) {
+          value.count *= 2;
+        }
+        return value;
+      }
+      return value;
+    },
+  };
+
+  const deserializeOptions: DeserializeOptions = {
+    offset: 0,
+    objectDatabase,
+    stringDatabase,
+    deserializers: [],
+  };
+
+  const testData = {
+    item: {
+      name: "test",
+      count: 5,
+    },
+    active: true,
+  };
+
+  const serialized = unknownSerializer(testData, options);
+  const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+  assertObjectMatch(deserialized as any, {
+    item: {
+      name: "test",
+      count: 10,
+    },
+    active: true,
+  });
+});
+
+// Test array encoding
+Deno.test("encoder should handle arrays", () => {
+  const objectDatabase = new Database<object | object[]>([]);
+  const stringDatabase = new Database<string>([]);
+
+  const options: SerializeOptions = {
+    objectDatabase,
+    stringDatabase,
+    serializers: [],
+    plainText: false,
+    plainObject: false,
+    encoder: (value: any): any => {
+      if (Array.isArray(value)) {
+        return value.map((item) => typeof item === "number" ? item * 2 : item);
+      }
+      return value;
+    },
+  };
+
+  const deserializeOptions: DeserializeOptions = {
+    offset: 0,
+    objectDatabase,
+    stringDatabase,
+    deserializers: [],
+  };
+
+  const testData = {
+    numbers: [1, 2, 3],
+    labels: ["a", "b", "c"],
+  };
+
+  const serialized = unknownSerializer(testData, options);
+  const deserialized = unknownDeserializer(serialized, deserializeOptions);
+
+  assertObjectMatch(deserialized as any, {
+    numbers: [2, 4, 6],
+    labels: ["a", "b", "c"],
+  });
 });

@@ -2,7 +2,13 @@ import { Opcode } from "../enums/mod.ts";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { unknownDeserializer } from "./unknown.deserializer.ts";
 
-// TODO: Improve this...
+/**
+ * Deserializes an array.
+ *
+ * @param serialized - The whole serialized array
+ * @param options - The deserialize options
+ * @returns - Returns the deserialized array
+ */
 export function arrayDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,

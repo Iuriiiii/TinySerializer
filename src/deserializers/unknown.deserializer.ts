@@ -1,6 +1,6 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { isUndefined } from "@online/is";
-import { Opcode } from "../enums/mod.ts";
+import { DecoderValueType, Opcode } from "../enums/mod.ts";
 import { booleanDeserializer } from "./boolean.deserializer.ts";
 import { infinityDeserializer } from "./infinity.deserializer.ts";
 import { nanDeserializer } from "./nan.deserializer.ts";
@@ -14,6 +14,18 @@ import { objectDeserializer } from "./object.deserializer.ts";
 import { referenceDeserializer } from "./reference.deserializer.ts";
 import { classDeserializer } from "./class.deserializer.ts";
 
+/**
+ * Deserializes an unknown value from a serialized Uint8Array buffer.
+ *
+ * @param serialized - The buffer containing the serialized value data.
+ * @param options - Options to control the deserialization process.
+ * @returns The deserialized value.
+ *
+ * The function checks the current opcode and calls the appropriate deserializer
+ * based on that opcode. If the opcode is unknown, it throws an error.
+ * If the `options.decoder` function is provided, it is called with the result
+ * and the `DecoderValueType.Plain` type.
+ */
 export function unknownDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
@@ -34,8 +46,7 @@ export function unknownDeserializer(
       result = arrayDeserializer(serialized, options);
       break;
     case currentOpcode === Opcode.Object:
-      result = objectDeserializer(serialized, options);
-      break;
+      return objectDeserializer(serialized, options);
     case currentOpcode === Opcode.StringReference ||
       currentOpcode === Opcode.Reserved3 ||
       currentOpcode === Opcode.Reserved4:
@@ -78,12 +89,16 @@ export function unknownDeserializer(
         const _result = deserializer(serialized, options);
 
         if (_result) {
-          return !options.decoder ? _result : options.decoder(_result);
+          return !options.decoder
+            ? _result
+            : options.decoder(_result, { type: DecoderValueType.Plain });
         }
       }
 
       throw new Error(`Unknown opcode: ${currentOpcode}`);
   }
 
-  return !options.decoder ? result : options.decoder(result);
+  return !options.decoder
+    ? result
+    : options.decoder(result, { type: DecoderValueType.Plain });
 }

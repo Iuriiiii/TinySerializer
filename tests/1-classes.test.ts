@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEqual, test } from "@inspatial/test";
 import { deserialize, Serializable, serialize } from "../mod.ts";
 import { SerializableClass, type SerializedClass } from "../types.ts";
 import type { RequireAtLeastOne } from "../src/types/mod.ts";
@@ -61,49 +61,47 @@ class User3 extends SerializableClass {
   }
 }
 
-Deno.test("Class Serialization", async (t) => {
-  await t.step("User", () => {
-    const user = new User("John", 25);
+test("Class Serialization", () => {
+  const user = new User("John", 25);
 
-    const serialization = serialize(user);
-    const deserialization = deserialize<User>(serialization.value, {
-      objectDatabase: serialization.objectDatabase,
-      stringDatabase: serialization.stringDatabase,
-    });
-
-    assertEquals(deserialization.value instanceof User, true);
-    assertEquals(deserialization.value.name, "John");
-    assertEquals(deserialization.value.age, 25);
-    assertEquals(deserialization.value.isOld, undefined);
+  const serialization = serialize(user);
+  const deserialization = deserialize<User>(serialization.value, {
+    objectDatabase: serialization.objectDatabase,
+    stringDatabase: serialization.stringDatabase,
   });
 
-  await t.step("User2", () => {
-    const user = new User2("John", 25);
+  assertEqual(deserialization.value instanceof User, true);
+  assertEqual(deserialization.value.name, "John");
+  assertEqual(deserialization.value.age, 25);
+  assertEqual(deserialization.value.isOld, undefined);
+});
 
-    const serialization = serialize(user);
-    const deserialization = deserialize<User2>(serialization.value, {
-      objectDatabase: serialization.objectDatabase,
-      stringDatabase: serialization.stringDatabase,
-    });
+test("Class Serialization 2", () => {
+  const user = new User2("John", 25);
 
-    assertEquals(deserialization.value instanceof User2, true);
-    assertEquals(deserialization.value.name, "John");
-    assertEquals(deserialization.value.age, 25);
-    assertEquals(deserialization.value.isOld, true);
+  const serialization = serialize(user);
+  const deserialization = deserialize<User2>(serialization.value, {
+    objectDatabase: serialization.objectDatabase,
+    stringDatabase: serialization.stringDatabase,
   });
 
-  await t.step("User3", () => {
-    const user = new User3("John", 25);
+  assertEqual(deserialization.value instanceof User2, true);
+  assertEqual(deserialization.value.name, "John");
+  assertEqual(deserialization.value.age, 25);
+  assertEqual(deserialization.value.isOld, true);
+});
 
-    const serialization = serialize(user);
-    const deserialization = deserialize<User3>(serialization.value, {
-      objectDatabase: serialization.objectDatabase,
-      stringDatabase: serialization.stringDatabase,
-    });
+test("Class Serialization 3", () => {
+  const user = new User3("John", 25);
 
-    assertEquals(deserialization.value instanceof User3, true);
-    assertEquals(deserialization.value.name, "John");
-    assertEquals(deserialization.value.age, 25);
-    assertEquals(deserialization.value.isOld, undefined);
+  const serialization = serialize(user);
+  const deserialization = deserialize<User3>(serialization.value, {
+    objectDatabase: serialization.objectDatabase,
+    stringDatabase: serialization.stringDatabase,
   });
+
+  assertEqual(deserialization.value instanceof User3, true);
+  assertEqual(deserialization.value.name, "John");
+  assertEqual(deserialization.value.age, 25);
+  assertEqual(deserialization.value.isOld, undefined);
 });
