@@ -1,6 +1,7 @@
 # TinySerializer
 
-A lightweight, efficient binary serializer for TypeScript and JavaScript that supports cyclic references, custom serializers, and class serialization.
+A lightweight, efficient binary serializer for TypeScript and JavaScript that
+supports cyclic references, custom serializers, and class serialization.
 
 ## Features
 
@@ -21,13 +22,13 @@ deno add tinyserializer
 ## Basic Usage
 
 ```typescript
-import { unknownSerializer, unknownDeserializer } from "./src/mod.ts";
+import { unknownDeserializer, unknownSerializer } from "./src/mod.ts";
 
 // Create some data
 const data = {
   name: "John",
   age: 30,
-  hobbies: ["reading", "gaming"]
+  hobbies: ["reading", "gaming"],
 };
 
 // Serialize
@@ -36,7 +37,7 @@ const serialized = unknownSerializer(data, {
   stringDatabase: new Database([]),
   serializers: [],
   plainText: false,
-  plainObject: false
+  plainObject: false,
 });
 
 // Deserialize
@@ -44,7 +45,7 @@ const deserialized = unknownDeserializer(serialized, {
   objectDatabase: new Database([]),
   stringDatabase: new Database([]),
   deserializers: [],
-  offset: 0
+  offset: 0,
 });
 
 console.log(deserialized); // Original data structure
@@ -59,7 +60,7 @@ import { Serializable, SerializableClass } from "./src/mod.ts";
 class User extends SerializableClass {
   constructor(
     public name: string,
-    public age: number
+    public age: number,
   ) {
     super();
   }
@@ -73,7 +74,7 @@ const deserialized = unknownDeserializer(serialized, options);
 ## Custom Serializers
 
 ```typescript
-import { SerializerFunction, DeserializeFunction } from "./src/mod.ts";
+import { DeserializeFunction, SerializerFunction } from "./src/mod.ts";
 
 const dateSerializer: SerializerFunction = (value, options) => {
   if (value instanceof Date) {
@@ -107,6 +108,7 @@ const dateDeserializer: DeserializeFunction = (serialized, options) => {
 ### Options
 
 #### SerializeOptions
+
 ```typescript
 interface SerializeOptions {
   objectDatabase: Database<object | object[]>;
@@ -119,6 +121,7 @@ interface SerializeOptions {
 ```
 
 #### DeserializeOptions
+
 ```typescript
 interface DeserializeOptions {
   objectDatabase: Database<object | object[]>;
