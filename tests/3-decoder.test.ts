@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { assertEquals, assertObjectMatch } from "@std/assert";
+import { assertEquals, assertObjectMatch, test } from "@inspatial/test";
 import { DecoderValueType } from "../src/enums/decoder-value-type.enum.ts";
 import type { SerializeOptions } from "../src/interfaces/serialize-options.interface.ts";
 import type { DeserializeOptions } from "../src/interfaces/deserialize-options.interface.ts";
@@ -8,7 +8,7 @@ import { unknownSerializer } from "../src/serializers/unknown.serializer.ts";
 import { unknownDeserializer } from "../src/deserializers/unknown.deserializer.ts";
 import type { Decoder } from "../src/types/decoder.type.ts";
 
-Deno.test("Decoder should handle plain values correctly", () => {
+test("Decoder should handle plain values correctly", () => {
   const objectDatabase = new Database<object | object[]>([]);
   const stringDatabase = new Database<string>([]);
   let lastDecodedValue: any;
@@ -46,7 +46,7 @@ Deno.test("Decoder should handle plain values correctly", () => {
   });
 });
 
-Deno.test("Decoder should handle object members correctly", () => {
+test("Decoder should handle object members correctly", () => {
   const objectDatabase = new Database<object | object[]>([]);
   const stringDatabase = new Database<string>([]);
   const decodedMembers: Record<string, any> = {};
@@ -84,7 +84,7 @@ Deno.test("Decoder should handle object members correctly", () => {
   });
 });
 
-Deno.test("Decoder should handle nested objects and arrays", () => {
+test("Decoder should handle nested objects and arrays", () => {
   const objectDatabase = new Database<object | object[]>([]);
   const stringDatabase = new Database<string>([]);
   const decodedObjects: any[] = [];
@@ -127,7 +127,7 @@ Deno.test("Decoder should handle nested objects and arrays", () => {
   assertEquals(decodedObjects.length, 5); // Main object, outer, inner, and two array objects
 });
 
-Deno.test("Decoder should handle null and undefined values", () => {
+test("Decoder should handle null and undefined values", () => {
   const objectDatabase = new Database<object | object[]>([]);
   const stringDatabase = new Database<string>([]);
   const decodedValues: any[] = [];
