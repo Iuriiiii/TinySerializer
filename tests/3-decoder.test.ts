@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { assertObjectMatch, assertEquals, test } from "@inspatial/test";
+import { assertEquals, assertObjectMatch, test } from "@inspatial/test";
 import { DecoderValueType } from "../src/enums/decoder-value-type.enum.ts";
 import type { SerializeOptions } from "../src/interfaces/serialize-options.interface.ts";
 import type { DeserializeOptions } from "../src/interfaces/deserialize-options.interface.ts";

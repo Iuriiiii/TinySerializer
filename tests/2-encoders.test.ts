@@ -49,8 +49,6 @@ test("encoder should modify values before serialization", () => {
     age: 25,
   });
 
-
-
   // Test null and undefined encoding
   test("encoder should handle null and undefined", () => {
     const objectDatabase = new Database<object | object[]>([]);
