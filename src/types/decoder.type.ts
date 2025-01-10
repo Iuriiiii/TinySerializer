@@ -46,7 +46,7 @@ export type DecoderContext<T extends DecoderValueType> = T extends
  * @param value - The deserialized value
  * @param context - The decoder context
  */
-export type Decoder = <T extends DecoderValueType>(
+export type Decoder<T extends DecoderValueType = any> = (
   value: any,
   context: DecoderContext<T>,
 ) => any;
