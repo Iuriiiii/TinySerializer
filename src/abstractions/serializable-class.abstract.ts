@@ -6,7 +6,6 @@ import type { SerializedClass } from "../interfaces/mod.ts";
  */
 export abstract class SerializableClass {
   /**
-   * 
    * @param serialized - The serialized class data
    * @returns The current class.
    */

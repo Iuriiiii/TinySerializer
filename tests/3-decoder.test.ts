@@ -1,12 +1,12 @@
 // deno-lint-ignore-file no-explicit-any
 import { assertEquals, assertObjectMatch } from "@std/assert";
 import { DecoderValueType } from "../src/enums/decoder-value-type.enum.ts";
-import { SerializeOptions } from "../src/interfaces/serialize-options.interface.ts";
-import { DeserializeOptions } from "../src/interfaces/deserialize-options.interface.ts";
+import type { SerializeOptions } from "../src/interfaces/serialize-options.interface.ts";
+import type { DeserializeOptions } from "../src/interfaces/deserialize-options.interface.ts";
 import { Database } from "../src/classes/database.util.ts";
 import { unknownSerializer } from "../src/serializers/unknown.serializer.ts";
 import { unknownDeserializer } from "../src/deserializers/unknown.deserializer.ts";
-import { Decoder } from "../src/types/decoder.type.ts";
+import type { Decoder } from "../src/types/decoder.type.ts";
 
 Deno.test("Decoder should handle plain values correctly", () => {
   const objectDatabase = new Database<object | object[]>([]);
@@ -114,10 +114,10 @@ Deno.test("Decoder should handle nested objects and arrays", () => {
   const testObj = {
     outer: {
       inner: {
-        value: "nested"
-      }
+        value: "nested",
+      },
     },
-    array: [{ id: 1 }, { id: 2 }]
+    array: [{ id: 1 }, { id: 2 }],
   };
 
   const serialized = unknownSerializer(testObj, serializeOptions);
@@ -157,7 +157,7 @@ Deno.test("Decoder should handle null and undefined values", () => {
   const testObj = {
     nullValue: null,
     undefinedValue: undefined,
-    defined: "exists"
+    defined: "exists",
   };
 
   const serialized = unknownSerializer(testObj, serializeOptions);
@@ -165,7 +165,7 @@ Deno.test("Decoder should handle null and undefined values", () => {
 
   assertObjectMatch(deserialized as object, {
     nullValue: null,
-    defined: "exists"
+    defined: "exists",
   });
   assertEquals(decodedValues.includes(null), true);
   assertEquals(decodedValues.includes(undefined), true);

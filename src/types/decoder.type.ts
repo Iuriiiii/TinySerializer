@@ -42,7 +42,7 @@ export type DecoderContext<T extends DecoderValueType> = T extends
 
 /**
  * Decoder function called whenever a value is deserialized.
- * 
+ *
  * @param value - The deserialized value
  * @param context - The decoder context
  */
