@@ -1,13 +1,13 @@
 {
   "name": "@online/tinyserializer",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "exports": {
     ".": "./mod.ts",
     "./types": "./types.ts"
   },
   "tasks": {
     "test": "clear && deno test && bun test && npx tsx --test ./tests/*.test.ts",
-    "generate:ai-docs": "clear && deno doc --json ./ai-docs.json"
+    "generate:ai-docs": "clear && deno doc --json ./*.ts >> ./ai-docs.json"
   },
   "imports": {
     "@inspatial/test": "jsr:@inspatial/test@^0.0.3",
