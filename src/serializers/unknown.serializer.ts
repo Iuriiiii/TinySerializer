@@ -43,13 +43,7 @@ export function unknownSerializer(
   value: unknown,
   options: SerializeOptions,
 ): Uint8Array {
-  const serializableValue = (() => {
-    if (value instanceof Database) {
-      return value;
-    }
-
-    return options?.encoder ? options.encoder(value) : value;
-  })();
+  const serializableValue = options?.encoder ? options.encoder(value) : value;
 
   switch (true) {
     case isNumber(serializableValue) &&
