@@ -46,7 +46,8 @@ export function unknownSerializer(
   const serializableValue = options?.encoder ? options.encoder(value) : value;
 
   switch (true) {
-    case isNumber(serializableValue) && !isNaN(serializableValue) &&
+    case isNumber(serializableValue) &&
+      !isNaN(serializableValue) &&
       !isInfinity(serializableValue):
       return numberSerializer(serializableValue, options);
     case isString(serializableValue):
@@ -57,7 +58,8 @@ export function unknownSerializer(
       return stringSerializer(serializableValue, options);
     case isBoolean(serializableValue):
       return booleanSerializer(serializableValue);
-    case isArray(serializableValue) || isPlainObject(serializableValue):
+    case isArray(serializableValue) ||
+      isPlainObject(serializableValue):
       // Try to resolve the reference, otherwise serialize the object
       return referenceSerializer(serializableValue, options);
     case isUndefined(serializableValue):
@@ -84,6 +86,7 @@ export function unknownSerializer(
       console.warn(
         "Is the serializable value a class? Remember to use the Serializable decorator!.",
       );
+
       throw new Error("Non serializable value found", {
         cause: serializableValue,
       });
