@@ -26,10 +26,7 @@ export function databaseSerializer(
     .toArrayOfObjects()
     .map(({ value }) => value);
 
-  const buffers = unknownSerializer(values, {
-    ..._options,
-    encoder: undefined,
-  });
+  const buffers = unknownSerializer(values, _options);
 
   return buffers;
 }
