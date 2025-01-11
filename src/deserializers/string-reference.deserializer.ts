@@ -16,7 +16,7 @@ export function stringReferenceDeserializer(
   options.offset++;
   // This works because the function detects the number type
 
-  const stringId = unknownDeserializer(serialized, options) as number;
+  const stringId = unknownDeserializer(serialized, { ...options, decoder: undefined }) as number;
   const _string = options.stringDatabase.getById(stringId)!;
 
   if (isUndefined(_string)) {
