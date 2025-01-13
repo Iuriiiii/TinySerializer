@@ -6,11 +6,11 @@
     "./types": "./types.ts"
   },
   "tasks": {
-    "test": "clear && deno test && bun test && npx tsx --test ./tests/*.test.ts",
+    "test": "clear && deno test && bun test && echo 'Executing with Node' && npx tsx --test ./tests/*.test.ts",
     "generate:ai-docs": "clear && deno doc --json ./*.ts >> ./ai-docs.json"
   },
   "imports": {
-    "@inspatial/test": "jsr:@inspatial/test@^0.0.3",
+    "@inspatial/test": "jsr:@inspatial/test@^0.0.7",
     "@online/is": "jsr:@online/is@^0.0.x",
     "@std/assert": "jsr:@std/assert@^1.0.9"
   },

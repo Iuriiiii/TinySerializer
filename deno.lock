@@ -1,7 +1,7 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@inspatial/test@^0.0.3": "0.0.3",
+    "jsr:@inspatial/test@^0.0.7": "0.0.7",
     "jsr:@inspatial/theme@0.0.2": "0.0.2",
     "jsr:@inspatial/theme@^0.0.2": "0.0.2",
     "jsr:@inspatial/util@^0.0.4": "0.0.4",
@@ -25,7 +25,7 @@
     "jsr:@std/toml@^1.0.1": "1.0.2",
     "jsr:@std/ulid@1.0.0": "1.0.0",
     "jsr:@std/yaml@^1.0.5": "1.0.5",
-    "npm:@jsr/inspatial__test@*": "0.0.3",
+    "npm:@jsr/inspatial__test@^0.0.7": "0.0.7",
     "npm:@jsr/online__is@*": "0.0.2",
     "npm:@types/node@*": "22.5.4",
     "npm:clsx@^2.1.1": "2.1.1",
@@ -33,8 +33,8 @@
     "npm:tailwind-merge@^1.14.0": "1.14.0"
   },
   "jsr": {
-    "@inspatial/test@0.0.3": {
-      "integrity": "6ff14ed747ab8d2bbef09c9106e8398e14d8e22cf27751516a9367e8741e2790",
+    "@inspatial/test@0.0.7": {
+      "integrity": "ca63fb1554127a58c54db2d0bb68f42ea2c9093d55bbdab4eb0ed52e9cb1f9f8",
       "dependencies": [
         "jsr:@inspatial/theme@0.0.2",
         "jsr:@inspatial/theme@^0.0.2",
@@ -157,8 +157,8 @@
     }
   },
   "npm": {
-    "@jsr/inspatial__test@0.0.3": {
-      "integrity": "sha512-5VL6ydV1oeatHPMKr2h23ifTe92j2596knrmTLg06hahAED6aZpubEvLmTXenU8ZZW3ZeTwdsH0Z4EfY5UNyBw==",
+    "@jsr/inspatial__test@0.0.7": {
+      "integrity": "sha512-m7rLFLDvoweqd8Apox5QmhLw3fU+J5eQgS+hQFzmdquQU1TvNqY69Dn/dMXk7CV773f4o0vjeiQU+NwAd5hGig==",
       "dependencies": [
         "@jsr/inspatial__theme",
         "@jsr/inspatial__util",
@@ -198,8 +198,8 @@
     "@jsr/std__bytes@1.0.4": {
       "integrity": "sha512-3RJxZsSHd9AhTIbJDYDigSTlElYkkU/NilUHtgLGxlXgNPxmb+wapntsxmgqQACsykhdCOUSW9SH/NinTBJ/XQ=="
     },
-    "@jsr/std__cli@1.0.9": {
-      "integrity": "sha512-ZfCzy27EWUWMbt8YZnpt5jHoBoFvdkfKVmTNvDQUG/GQSHUR8vN3pOTHbB5xYSFwqQ5I8rbf5CszGtt8NZS4Ag=="
+    "@jsr/std__cli@1.0.10": {
+      "integrity": "sha512-bF7M8dZQhTK+17df6smXW5Ry6FYTG5lCoMs2BtPdPU/mtAmCh83BAhIMgYz63CRacI31BjtzdTB1sVGz7KAUug=="
     },
     "@jsr/std__collections@1.0.9": {
       "integrity": "sha512-cTxYdBY5oMVyU26MLLHsX1jXu9GUmiQKNnKrcEMo9/qei4lypvnds6I7cp5i7N1ex5DRetQaNa/YjMyJQEabzg=="
@@ -216,15 +216,15 @@
     "@jsr/std__encoding@1.0.5": {
       "integrity": "sha512-blLadT0G3SiwsneatWsUwH5s+Sb+zSsQCgtHZlT+nQkoFci2OiErHx4XqdoFcwuz3IH6wOdPZqjhcSrbNS0jqA=="
     },
-    "@jsr/std__expect@1.0.10": {
-      "integrity": "sha512-dHQYeZYq0Ghn4JjQrdlS7LfeABLB3/MBAsX51ZSdZaYkkIbhAKDzobdtXkE43RNVhYlqlGKAkYNaZoWq++/bsg==",
+    "@jsr/std__expect@1.0.11": {
+      "integrity": "sha512-Q9iB8kwJSpHAlav4dHlMDf9tVbnBE+IXqe9HBlgnfen/VlyX9VIBcOZhrgyRsX+IUu33dQs2OskH2biktIl6jQ==",
       "dependencies": [
         "@jsr/std__assert",
         "@jsr/std__internal"
       ]
     },
-    "@jsr/std__fmt@1.0.3": {
-      "integrity": "sha512-Nf8EywAPLhDV6k0Nbsqid3slskDji4xG2wHxyLM/ojG75NtxY3mdeFov2RVj9fsyBV+qQcoqlR/9RX5lkZJLMQ=="
+    "@jsr/std__fmt@1.0.4": {
+      "integrity": "sha512-LtGv/QiMOECQr4bCaJ/14sIdp/atKEiW8B8K3vV0RZ5X/tgOeMNvcvfxGpvKgeqIESsecJ4Pa6icNgI/H3pLBA=="
     },
     "@jsr/std__front-matter@1.0.5": {
       "integrity": "sha512-lA3cSB5STf4LyKO5YRbd7lpuLwL7SytjUdSBSUBrsbYi1IyXI4aTKtaJavRmBHWCvA0ADfRNzIs5e7qWQYcETg==",
@@ -342,13 +342,13 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@inspatial/test@^0.0.3",
+      "jsr:@inspatial/test@^0.0.7",
       "jsr:@online/is@0.0",
       "jsr:@std/assert@^1.0.9"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@jsr/inspatial__test@*",
+        "npm:@jsr/inspatial__test@^0.0.7",
         "npm:@jsr/online__is@*"
       ]
     }
