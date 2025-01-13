@@ -1,6 +1,6 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
 import { isUndefined } from "@online/is";
-import { DecoderValueType, Opcode } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import { booleanDeserializer } from "./boolean.deserializer.ts";
 import { infinityDeserializer } from "./infinity.deserializer.ts";
 import { nanDeserializer } from "./nan.deserializer.ts";
@@ -89,16 +89,12 @@ export function unknownDeserializer(
         const _result = deserializer(serialized, options);
 
         if (_result) {
-          return !options.decoder
-            ? _result
-            : options.decoder(_result, { type: DecoderValueType.Plain });
+          return _result;
         }
       }
 
       throw new Error(`Unknown opcode: ${currentOpcode}`);
   }
 
-  return !options.decoder
-    ? result
-    : options.decoder(result, { type: DecoderValueType.Plain });
+  return result;
 }

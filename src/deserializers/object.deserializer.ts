@@ -1,6 +1,5 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import type { Constructor } from "../types/mod.ts";
-import { DecoderValueType, Opcode } from "../enums/mod.ts";
+import { Opcode } from "../enums/mod.ts";
 import { memberDeserializer } from "./member.deserializer.ts";
 
 /**
@@ -23,7 +22,6 @@ import { memberDeserializer } from "./member.deserializer.ts";
 export function objectDeserializer(
   serialized: Uint8Array,
   options: DeserializeOptions,
-  clazz?: Constructor,
 ): object {
   const result = {};
 
@@ -42,11 +40,8 @@ export function objectDeserializer(
       break;
     }
 
-    memberDeserializer(serialized, options, result, clazz);
+    memberDeserializer(serialized, options, result);
   }
 
-  return !options.decoder ? result : options.decoder(result, {
-    type: clazz ? DecoderValueType.Class : DecoderValueType.Object,
-    constructor: clazz,
-  });
+  return result;
 }

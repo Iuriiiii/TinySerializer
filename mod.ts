@@ -31,7 +31,6 @@ export function serialize(
     plainText: options?.plainText ?? false,
     plainObject: options?.plainObject ?? false,
     serializers: options?.serializers ?? [],
-    encoder: options?.encoder,
   });
 
   const result = {
@@ -54,7 +53,6 @@ export function deserialize<T = unknown>(
     objectDatabase,
     stringDatabase,
     deserializers: options?.deserializers ?? [],
-    decoder: options?.decoder,
   }) as T;
 
   const result = {

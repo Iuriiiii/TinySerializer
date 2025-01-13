@@ -5,9 +5,7 @@ import type {
 } from "./src/interfaces/mod.ts";
 
 import type {
-  Decoder,
   DeserializeFunction,
-  Encoder,
   RequireAtLeastOne,
   SerializerFunction,
 } from "./src/types/mod.ts";
@@ -17,10 +15,8 @@ export { NumberSerializationType, Opcode } from "./src/enums/mod.ts";
 export * from "./src/abstractions/mod.ts";
 
 export type {
-  Decoder,
   DeserializeFunction,
   DeserializeOptions,
-  Encoder,
   RequireAtLeastOne,
   SerializedClass,
   SerializeOptions,
