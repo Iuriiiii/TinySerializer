@@ -116,7 +116,6 @@ interface SerializeOptions {
   serializers: SerializerFunction[];
   plainText: boolean;
   plainObject: boolean;
-  encoder?: Encoder;
 }
 ```
 
@@ -128,7 +127,6 @@ interface DeserializeOptions {
   stringDatabase: Database<string>;
   deserializers: DeserializeFunction[];
   offset: number;
-  decoder?: Decoder;
 }
 ```
 
