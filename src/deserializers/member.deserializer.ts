@@ -1,5 +1,4 @@
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import type { Constructor } from "../types/mod.ts";
 import { Opcode } from "../enums/mod.ts";
 import { stringReferenceDeserializer } from "./string-reference.deserializer.ts";
 import { unknownDeserializer } from "./unknown.deserializer.ts";
