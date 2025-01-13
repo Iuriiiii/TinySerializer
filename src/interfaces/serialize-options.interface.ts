@@ -1,5 +1,5 @@
 import type { Database } from "../classes/mod.ts";
-import type { Encoder, SerializerFunction } from "../types/mod.ts";
+import type { SerializerFunction } from "../types/mod.ts";
 
 /**
  * Options for serializing.
@@ -30,8 +30,4 @@ export interface SerializeOptions {
    */
 
   plainObject: boolean;
-  /**
-   * The encoder function.
-   */
-  encoder?: Encoder;
 }

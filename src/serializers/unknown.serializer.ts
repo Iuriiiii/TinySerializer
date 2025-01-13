@@ -43,40 +43,38 @@ export function unknownSerializer(
   value: unknown,
   options: SerializeOptions,
 ): Uint8Array {
-  const serializableValue = options?.encoder ? options.encoder(value) : value;
-
   switch (true) {
-    case isNumber(serializableValue) &&
-      !isNaN(serializableValue) &&
-      !isInfinity(serializableValue):
-      return numberSerializer(serializableValue, options);
-    case isString(serializableValue):
+    case isNumber(value) &&
+      !isNaN(value) &&
+      !isInfinity(value):
+      return numberSerializer(value, options);
+    case isString(value):
       if (!options.plainText) {
-        return stringReferenceSerializer(serializableValue, options);
+        return stringReferenceSerializer(value, options);
       }
 
-      return stringSerializer(serializableValue, options);
-    case isBoolean(serializableValue):
-      return booleanSerializer(serializableValue);
-    case isArray(serializableValue) ||
-      isPlainObject(serializableValue):
+      return stringSerializer(value, options);
+    case isBoolean(value):
+      return booleanSerializer(value);
+    case isArray(value) ||
+      isPlainObject(value):
       // Try to resolve the reference, otherwise serialize the object
-      return referenceSerializer(serializableValue, options);
-    case isUndefined(serializableValue):
+      return referenceSerializer(value, options);
+    case isUndefined(value):
       return undefinedSerializer();
-    case isNull(serializableValue):
+    case isNull(value):
       return nullSerializer();
-    case isInfinity(serializableValue):
-      return infinitySerializer(serializableValue < 0);
-    case isNaN(serializableValue):
+    case isInfinity(value):
+      return infinitySerializer(value < 0);
+    case isNaN(value):
       return nanSerializer();
-    case isSerializableClass(serializableValue):
-      return classSerializer(serializableValue, options);
-    case serializableValue instanceof Database:
-      return databaseSerializer(serializableValue, options);
+    case isSerializableClass(value):
+      return classSerializer(value, options);
+    case value instanceof Database:
+      return databaseSerializer(value, options);
     default:
       for (const serializer of options.serializers) {
-        const result = serializer(serializableValue, options);
+        const result = serializer(value, options);
 
         if (result) {
           return result;
@@ -88,7 +86,7 @@ export function unknownSerializer(
       );
 
       throw new Error("Non serializable value found", {
-        cause: serializableValue,
+        cause: value,
       });
   }
 }

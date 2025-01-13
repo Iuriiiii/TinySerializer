@@ -42,11 +42,8 @@ export function objectDeserializer(
       break;
     }
 
-    memberDeserializer(serialized, options, result, clazz);
+    memberDeserializer(serialized, options, result);
   }
 
-  return !options.decoder ? result : options.decoder(result, {
-    type: clazz ? DecoderValueType.Class : DecoderValueType.Object,
-    constructor: clazz,
-  });
+  return result;
 }

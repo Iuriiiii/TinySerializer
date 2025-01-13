@@ -29,7 +29,7 @@ export function classDeserializer(
   const clazz = serializableClasses.get(className)!;
   const deserializedClassContent = objectDeserializer(
     serialized,
-    { ...options, decoder: undefined },
+    options,
   ) as SerializedClass<any>;
 
   if ("deserialize" in clazz && clazz.deserialize instanceof Function) {

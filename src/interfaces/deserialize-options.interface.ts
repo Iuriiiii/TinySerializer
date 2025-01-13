@@ -1,4 +1,4 @@
-import type { Decoder, DeserializeFunction } from "../types/mod.ts";
+import type { DeserializeFunction } from "../types/mod.ts";
 import type { SerializeOptions } from "./serialize-options.interface.ts";
 
 /**
@@ -18,9 +18,4 @@ export interface DeserializeOptions extends
    * All custom deserializers.
    */
   deserializers: DeserializeFunction[];
-
-  /**
-   * A decoder.
-   */
-  decoder?: Decoder;
 }

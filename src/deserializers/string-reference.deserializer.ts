@@ -1,6 +1,6 @@
 import { isUndefined } from "@online/is";
 import type { DeserializeOptions } from "../interfaces/mod.ts";
-import { unknownDeserializer } from "./unknown.deserializer.ts";
+import { numberDeserializer } from "./number.deserializer.ts";
 
 /**
  * Deserializes a string reference.
@@ -16,7 +16,7 @@ export function stringReferenceDeserializer(
   options.offset++;
   // This works because the function detects the number type
 
-  const stringId = unknownDeserializer(serialized, { ...options, decoder: undefined }) as number;
+  const stringId = numberDeserializer(serialized, options);
   const _string = options.stringDatabase.getById(stringId)!;
 
   if (isUndefined(_string)) {
