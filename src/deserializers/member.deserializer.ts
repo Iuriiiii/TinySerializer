@@ -25,8 +25,10 @@ export function memberDeserializer(
   const member = stringReferenceDeserializer(serialized, options);
   const value = unknownDeserializer(serialized, options);
 
-  // @ts-ignore: Index access
-  result[member] = value;
+  Object.defineProperty(result, member, {
+    value,
+    enumerable: true,
+  });
 
   return result;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@online/tinyserializer",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "exports": {
     ".": "./mod.ts",
     "./types": "./types.ts"
@@ -17,6 +17,5 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
-  },
-  "nodeModulesDir": "auto"
+  }
 }

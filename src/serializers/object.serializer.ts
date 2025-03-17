@@ -19,8 +19,9 @@ export function objectSerializer(
 ): Uint8Array {
   const buffers: Uint8Array[] = [new Uint8Array([Opcode.Object])];
 
-  for (const entry of Object.entries(value)) {
-    buffers.push(memberSerializer(entry, options));
+  for (const property of Object.getOwnPropertyNames(value)) {
+    const entry = [property, (value as Record<string, unknown>)[property]];
+    buffers.push(memberSerializer(entry as [string, unknown], options));
   }
 
   buffers.push(new Uint8Array([Opcode.EndObject]));
