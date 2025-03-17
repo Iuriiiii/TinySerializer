@@ -74,7 +74,10 @@ const deserialized = unknownDeserializer(serialized, options);
 ## Custom Serializers
 
 ```typescript
-import { DeserializeFunction, SerializerFunction } from "@online/tinyserializer";
+import {
+  DeserializeFunction,
+  SerializerFunction,
+} from "@online/tinyserializer";
 
 const dateSerializer: SerializerFunction = (value, options) => {
   if (value instanceof Date) {
