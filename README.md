@@ -16,13 +16,13 @@ supports cyclic references, custom serializers, and class serialization.
 ## Installation
 
 ```bash
-deno add tinyserializer
+deno add @online/tinyserializer
 ```
 
 ## Basic Usage
 
 ```typescript
-import { unknownDeserializer, unknownSerializer } from "./src/mod.ts";
+import { unknownDeserializer, unknownSerializer } from "@online/tinyserializer";
 
 // Create some data
 const data = {
@@ -54,7 +54,7 @@ console.log(deserialized); // Original data structure
 ## Class Serialization
 
 ```typescript
-import { Serializable, SerializableClass } from "./src/mod.ts";
+import { Serializable, SerializableClass } from "@online/tinyserializer";
 
 @Serializable()
 class User extends SerializableClass {
@@ -74,7 +74,7 @@ const deserialized = unknownDeserializer(serialized, options);
 ## Custom Serializers
 
 ```typescript
-import { DeserializeFunction, SerializerFunction } from "./src/mod.ts";
+import { DeserializeFunction, SerializerFunction } from "@online/tinyserializer";
 
 const dateSerializer: SerializerFunction = (value, options) => {
   if (value instanceof Date) {
