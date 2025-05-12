@@ -15,7 +15,7 @@ export function Serializable(): (constructor: Constructor) => any {
   return function (constructor: Constructor) {
     if (!(constructor.prototype instanceof SerializableClass)) {
       throw new Error(
-        `The class must extend "SerializableClass" abtract class.`,
+        `The class must extend "SerializableClass" abstract class.`,
       );
     }
 
